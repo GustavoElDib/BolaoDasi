@@ -6,7 +6,7 @@ O projeto permite que usuários realizem palpites das partidas, acompanhem resul
 
 ---
 
-# 🚀 Tecnologias
+# Tecnologias
 
 - Next.js
 - TypeScript
@@ -18,7 +18,7 @@ O projeto permite que usuários realizem palpites das partidas, acompanhem resul
 
 ---
 
-# 🎯 Funcionalidades
+# Funcionalidades
 
 - Autenticação de usuários
 - Listagem de jogos da Copa
@@ -29,7 +29,7 @@ O projeto permite que usuários realizem palpites das partidas, acompanhem resul
 
 ---
 
-# 🏆 Sistema de Pontuação
+# Sistema de Pontuação
 
 Os pontos variam de acordo com:
 - precisão do palpite
@@ -37,7 +37,7 @@ Os pontos variam de acordo com:
 
 ---
 
-# ⚽ Regras dos Palpites
+# Regras dos Palpites
 
 ## Acertou o vencedor da partida
 
@@ -69,7 +69,7 @@ Exemplo:
 
 ---
 
-# 📊 Multiplicador por Fase
+# Multiplicador por Fase
 
 As fases eliminatórias possuem peso maior no ranking.
 
@@ -83,7 +83,7 @@ As fases eliminatórias possuem peso maior no ranking.
 
 ---
 
-# 🧮 Exemplo de Pontuação
+# Exemplo de Pontuação
 
 ## Fase de grupos
 
@@ -105,7 +105,7 @@ Acertar placar exato:
 
 ---
 
-# 🔒 Regras Gerais
+# Regras Gerais
 
 - Os palpites ficam disponíveis apenas antes do início da partida (até uma hora antes).
 - O palpite é bloqueado automaticamente uma hora antes do jogo começar.
@@ -113,7 +113,7 @@ Acertar placar exato:
 
 ---
 
-# 📦 Como executar
+# Como executar
 
 ## Instalar dependências
 
@@ -131,7 +131,7 @@ npm run dev
 
 ---
 
-# 🔑 Variáveis de Ambiente
+# Variáveis de Ambiente
 
 Crie um arquivo `.env.local`:
 
@@ -142,13 +142,13 @@ DATABASE_URL=SUA_URL
 
 ---
 
-# 🌍 API utilizada
+# API utilizada
 
 Football Data API:
 https://www.football-data.org/
 
 ---
 
-# 👨‍💻 Autor
+# Autores
 
 Desenvolvido pelo Departamento Acadêmico de Sistemas de Informação da USP
