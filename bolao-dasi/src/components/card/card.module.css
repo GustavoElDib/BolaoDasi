@@ -1,0 +1,145 @@
+.card {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+
+    border-radius: 24px;
+
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group {
+    color: #a1a1aa;
+    font-size: 14px;
+}
+
+.stage {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dateContainer {
+    text-align: right;
+}
+
+.time {
+    color: #a1a1aa;
+    font-size: 14px;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.team {
+    width: 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    text-align: center;
+}
+
+.inputsContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.input {
+    width: 56px;
+    height: 56px;
+
+    border: none;
+    border-radius: 16px;
+
+    background-color: #27272a;
+
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    color: white;
+}
+
+.input:focus {
+    outline: 2px solid #22c55e;
+}
+
+.versus {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.resultContainer {
+    background-color: #27272a;
+
+    border-radius: 16px;
+
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resultLabel {
+    font-size: 14px;
+    color: #a1a1aa;
+}
+
+.result {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.open {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.closed {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+.button {
+    height: 48px;
+
+    border: none;
+    border-radius: 16px;
+
+    background-color: #16a34a;
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.button:hover {
+    background-color: #15803d;
+}
+
+.button:disabled {
+    background-color: #3f3f46;
+    cursor: not-allowed;
+}

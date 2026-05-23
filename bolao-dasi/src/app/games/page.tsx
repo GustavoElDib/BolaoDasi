@@ -1,6 +1,8 @@
-import Image from "next/image";
-
+//Componentes
+import { Card } from "@/components/card/card";
+//Tipos
 import { Match } from "@/types/match";
+//Serviços da API
 import { getWorldCupMatches } from "@/services/footballData";
 
 export default async function GamesPage() {
@@ -9,77 +11,25 @@ export default async function GamesPage() {
     return (
         <main className="min-h-screen p-8">
 
-            <h1 className="text-4xl font-bold mb-8">
-                Jogos da Copa ⚽
+            <h1 className="text-4xl font-bold">
+                Seus Palpites
             </h1>
 
-            <div className="flex flex-col gap-4">
+            <p className="text-zinc-400 mt-2 mb-8">
+                Os palpites encerram
+                {" "}
+                <strong>1 hora</strong>
+                {" "}
+                antes do jogo.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                 {matches.map((match: Match) => (
-                    <div
+                    <Card
                         key={match.id}
-                        className="
-                            border
-                            border-zinc-800
-                            rounded-xl
-                            p-4
-                        "
-                    >
-
-                        <div className="flex items-center justify-between">
-
-                            <div className="flex items-center gap-3">
-
-                                {match.homeTeam.crest && (
-                                    <Image
-                                        src={match.homeTeam.crest}
-                                        alt={match.homeTeam.name}
-                                        width={40}
-                                        height={40}
-                                    />
-                                )}
-
-                                {
-                                match.status === "TIMED" && 
-                                    <span>
-                                        {match.homeTeam.name + ": 0"}
-                                    </span>
-                                }
-
-
-                            </div>
-
-                            {
-                            match.homeTeam.crest && match.awayTeam.crest && 
-                                <span className="font-bold">
-                                    VS
-                                </span>
-                            }
-            
-
-                            <div className="flex items-center gap-3">
-
-                                {
-                                match.status === "TIMED" && 
-                                    <span>
-                                        {match.awayTeam.name + ": 0"}
-                                    </span>
-                                }
-
-                                {match.awayTeam.crest && (
-                                    <Image
-                                        src={match.awayTeam.crest}
-                                        alt={match.awayTeam.name}
-                                        width={40}
-                                        height={40}
-                                    />
-                                )}
-
-                            </div>
-
-                        </div>
-
-                    </div>
+                        match={match}
+                    />
                 ))}
 
             </div>

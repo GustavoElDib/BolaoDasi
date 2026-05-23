@@ -1,5 +1,8 @@
+//url base da API
 const BASE_URL = "https://api.football-data.org/v4";
 
+//função que busca todos os jogos da copa do mundo
+//caso for usar, faça um console.log(data) para ver a estrutura dos dados e pegar o que precisa
 export async function getWorldCupMatches() {
     const response = await fetch(
         `${BASE_URL}/competitions/WC/matches`,
@@ -19,6 +22,6 @@ export async function getWorldCupMatches() {
 
     const data = await response.json();
 
-    console.log(data);
+    //console.log(data);
     return data.matches;
 }
