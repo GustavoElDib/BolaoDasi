@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  nome         String    
+  email        String    @unique 
+  senha        String    
+  
+  palpites     Palpite[]
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Fase {
+  id           Int       @id @default(autoincrement()) 
+  nome         String    
+  peso         Int       
+
+  partidas     Partida[]
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model TimeFutebol {
+  id           Int       @id @default(autoincrement()) 
+  nome         String    
+  codigo       String?   
+
+  partidasComoMandante  Partida[] @relation("TimeMandante")
+  partidasComoVisitante Partida[] @relation("TimeVisitante")
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Partida {
+  id               Int       @id @default(autoincrement()) 
+  dataPartida      DateTime  
+  placarCasaReal   Int?      
+  placarForaReal   Int?      
+  
+  faseID           Int
+  fase             Fase      @relation(fields: [faseID], references: [id])
+
+  timeUmID         Int
+  timeMandante     TimeFutebol @relation("TimeMandante", fields: [timeUmID], references: [id])
+  
+  timeDoisID       Int
+  timeVisitante    TimeFutebol @relation("TimeVisitante", fields: [timeDoisID], references: [id])
+
+  palpites         Palpite[]
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  // Regra de Negócio: Impede que o mesmo jogo seja recriado na mesma data
+  @@unique([timeUmID, timeDoisID, dataPartida])
+}
+
+model Palpite {
+  id               Int       @id @default(autoincrement()) 
+  palpiteTimeCas   Int       
+  palpiteTimeFor   Int       
+  pontosGanho      Int?      
+
+  usuarioID        String
+  user             User      @relation(fields: [usuarioID], references: [id])
+  
+  partidaID        Int
+  partida          Partida   @relation(fields: [partidaID], references: [id])
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  // Regra de Negócio: Um usuário só palpita uma vez por partida
+  @@unique([usuarioID, partidaID]) 
+}
