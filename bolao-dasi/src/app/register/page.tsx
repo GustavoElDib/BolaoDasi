@@ -52,12 +52,14 @@ export default function RegisterPage() {
                 placeholder="Nome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
+                autoComplete="off"
             />
 
             <input
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
             />
 
             <input
@@ -65,6 +67,7 @@ export default function RegisterPage() {
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
+                autoComplete="off"
             />
 
             <button onClick={handleRegister}>

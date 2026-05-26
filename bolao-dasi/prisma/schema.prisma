@@ -85,3 +85,16 @@ model Palpite {
   // Regra de Negócio: Um usuário só palpita uma vez por partida
   @@unique([usuarioID, partidaID]) 
 }
+
+model PasswordResetToken {
+
+  id        String @id @default(cuid())
+
+  token     String @unique
+
+  email     String
+
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+}
