@@ -4,6 +4,7 @@
 import { useMemo, useState } from "react";
 import { Card } from "@/components/card/card";
 import { Match } from "@/types/match";
+import { EmptyAnimation } from "@/components/animations/EmptyAnimations";
 import styles from "./games.module.css";
 
 type Prediction = {
@@ -18,14 +19,21 @@ type Props = {
     predictions: Prediction[];
 };
 
+// Mensagens de estado vazio por filtro
+const EMPTY_MESSAGES = {
+    all: "Nenhum jogo disponível.",
+    predicted: "Ops! Você ainda não fez nenhum palpite...",
+    not_predicted: "Você já palpitou em todos os jogos!",
+};
+
 export function GamesContent({ matches, predictions }: Props) {
-    // estado do filtro ativo(todos, já palpitados ou não palpitados)
+    // Estado do filtro ativo: todos, já palpitados ou não palpitados
     const [filter, setFilter] = useState<
         "all" | "predicted" | "not_predicted"
     >("all");
 
-    // transforma o array de palpites em um Map para buscas O(1)
-    // a chave é o partidaID (= apiFootballId da partida)
+    // Transforma o array de palpites em um Map para buscas O(1)
+    // A chave é o partidaID (= apiFootballId da partida)
     const predictionsMap = useMemo(() => {
         return new Map(
             predictions.map((prediction) => [
@@ -35,22 +43,23 @@ export function GamesContent({ matches, predictions }: Props) {
         );
     }, [predictions]);
 
-    // filtra os jogos de acordo com o filtro ativo
+    // Filtra os jogos de acordo com o filtro ativo
     // useMemo evita recalcular quando outros estados mudam
     const filteredMatches = useMemo(() => {
         if (filter === "all") return matches;
 
         if (filter === "predicted") {
-            // mostra só os jogos que têm palpite no Map
+            // Mostra só os jogos que têm palpite no Map
             return matches.filter((match) => predictionsMap.has(match.id));
         }
 
-        // mostra só os jogos que não têm palpite no Map
+        // Mostra só os jogos que NÃO têm palpite no Map
         return matches.filter((match) => !predictionsMap.has(match.id));
     }, [filter, matches, predictionsMap]);
 
     return (
         <>
+            {/* Barra de filtros */}
             <div className={styles.filters}>
                 <button
                     onClick={() => setFilter("all")}
@@ -77,23 +86,28 @@ export function GamesContent({ matches, predictions }: Props) {
                 </button>
             </div>
 
-
-            <div className={styles.grid}>
-                {filteredMatches.length === 0 ? (
-                    <p className={styles.empty}>
-                        Nenhum jogo encontrado para este filtro.
+            {/* Grid de cards ou estado vazio com animação */}
+            {filteredMatches.length === 0 ? (
+                // Estado vazio — só aparece nos filtros "palpitados" e "não palpitados"
+                // O filtro "todos" nunca fica vazio enquanto houver jogos no banco
+                <div className={styles.emptyState}>
+                    <EmptyAnimation />
+                    <p className={styles.emptyText}>
+                        {EMPTY_MESSAGES[filter]}
                     </p>
-                ) : (
-                    filteredMatches.map((match) => (
+                </div>
+            ) : (
+                <div className={styles.grid}>
+                    {filteredMatches.map((match) => (
                         <Card
                             key={match.id}
                             match={match}
-                            // passa o palpite existente se o usuário já palpitou neste jogo
+                            // Passa o palpite existente se o usuário já palpitou neste jogo
                             prediction={predictionsMap.get(match.id)}
                         />
-                    ))
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
         </>
     );
 }

@@ -24,20 +24,20 @@ export function Card({ match, prediction }: Props) {
     const router = useRouter();
     const { toast, showToast, hideToast } = useToast();
 
-    // Formata a data e hora no padrão brasileiro
+    // formata a data e hora no padrão brasileiro
     const formattedDate = date.toLocaleDateString("pt-BR");
     const formattedTime = date.toLocaleTimeString("pt-BR", {
         hour: "2-digit",
         minute: "2-digit",
     });
 
-    // Palpite só é permitido se o jogo não começou e não terminou
+    // palpite só é permitido se o jogo não começou e não terminou
     const isBetOpen =
         match.status !== "FINISHED" && match.status !== "IN_PLAY";
 
     const [loading, setLoading] = useState(false);
 
-    // Inicializa os inputs com o palpite existente (se já tiver feito antes)
+    // inicializa os inputs com o palpite existente (se já tiver feito antes)
     const [homeScore, setHomeScore] = useState(
         prediction ? String(prediction.palpiteTimeCas) : ""
     );
@@ -47,11 +47,17 @@ export function Card({ match, prediction }: Props) {
     );
 
     async function savePrediction() {
+        // valida se os dois campos foram preenchidos antes de enviar
+        if (homeScore === "" || awayScore === "") {
+            showToast("Preencha o placar dos dois times.", "error");
+            return;
+        }
+
         try {
             setLoading(true);
 
-            // Envia o palpite para a rota POST /api/predictions
-            // gameId é o apiFootballId — identificador da API externa
+            // envia o palpite para a rota POST /api/predictions
+            // gameId é o apiFootballId
             const response = await fetch("/api/predictions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -66,7 +72,7 @@ export function Card({ match, prediction }: Props) {
 
             showToast("Palpite salvo com sucesso!", "success");
 
-            // Força o Next.js a re-buscar os dados do servidor
+            // força o Next a re-buscar os dados do servidor
             // para atualizar o filtro "Já Palpitados"
             router.refresh();
         } catch {
@@ -78,7 +84,7 @@ export function Card({ match, prediction }: Props) {
 
     return (
         <>
-            {/* Toast de feedback — aparece no canto da tela */}
+            {/* Toast de feedback */}
             {toast && (
                 <Toast
                     key={toast.id}
@@ -93,7 +99,7 @@ export function Card({ match, prediction }: Props) {
                 <div className={styles.header}>
                     <div>
                         {/* Exibe o grupo se estiver na fase de grupos,
-                            senão exibe o nome da fase (ex: Quartas de final) */}
+                            senão exibe o nome da fase */}
                         <span className={styles.group}>
                             {match.group || match.stage}
                         </span>
@@ -104,9 +110,9 @@ export function Card({ match, prediction }: Props) {
                     </div>
                 </div>
 
-                {/* Área dos times e inputs de palpite */}
+                {/* area dos times e inputs de palpite */}
                 <div className={styles.teams}>
-                    {/* Time da casa (mandante) */}
+                    {/* time da casa (mandante) */}
                     <div className={styles.team}>
                         {match.homeTeam.crest && (
                             <Image
@@ -119,7 +125,7 @@ export function Card({ match, prediction }: Props) {
                         <span>{match.homeTeam.name}</span>
                     </div>
 
-                    {/* Inputs de placar — desabilitados se jogo fechado */}
+                    {/* inputs de placar */}
                     <div className={styles.inputsContainer}>
                         <input
                             type="number"
@@ -140,7 +146,7 @@ export function Card({ match, prediction }: Props) {
                         />
                     </div>
 
-                    {/* Time visitante */}
+                    {/* time visitante */}
                     <div className={styles.team}>
                         {match.awayTeam.crest && (
                             <Image
@@ -154,14 +160,14 @@ export function Card({ match, prediction }: Props) {
                     </div>
                 </div>
 
-                {/* Divisor decorativo estilo listras de gramado */}
+                {/* divisor decorativo estilo listras de gramado */}
                 <div className={styles.grassDivider} />
 
-                {/* Linha de resultado real + badge de status */}
+                {/* linha de resultado real e badge */}
                 <div className={styles.resultContainer}>
                     <div>
                         <p className={styles.resultLabel}>Resultado</p>
-                        {/* Mostra pontos ganhos se o jogo já terminou */}
+                        {/* mostra pontos ganhos se o jogo já terminou */}
                         {match.status === "FINISHED" && prediction && (
                             <p className={styles.result}>
                                 {prediction.pontosGanho ?? 0} pts
@@ -176,7 +182,7 @@ export function Card({ match, prediction }: Props) {
 
                     <div>
                         <p className={styles.resultLabel}>Palpite</p>
-                        {/* Verde se ainda pode palpitar, vermelho se encerrou */}
+                        {/* verde se ainda pode palpitar, vermelho se encerrou */}
                         <span
                             className={
                                 isBetOpen ? styles.open : styles.closed
@@ -187,14 +193,14 @@ export function Card({ match, prediction }: Props) {
                     </div>
                 </div>
 
-                {/* Botão de salvar — desabilitado se jogo encerrado ou salvando */}
+                {/* botão de salvar(desabilitado se jogo encerrado ou salvando) */}
                 <div className={styles.footer}>
                     <button
                         disabled={!isBetOpen || loading}
                         onClick={savePrediction}
                         className={styles.button}
                     >
-                        {loading ? "Salvando..." : "⚽ Salvar Palpite"}
+                        {loading ? "Salvando..." : "Salvar Palpite"}
                     </button>
                 </div>
             </div>

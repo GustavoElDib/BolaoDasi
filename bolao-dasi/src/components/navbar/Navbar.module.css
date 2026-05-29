@@ -20,8 +20,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 15px;
-    font-weight: 500;
+    font-family: var(--font-poiretOne);
+    font-size: 25px;
+    font-weight: bold;
     color: #a78bfa;
     letter-spacing: 0.02em;
     text-decoration: none;

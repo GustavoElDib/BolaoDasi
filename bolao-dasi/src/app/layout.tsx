@@ -1,8 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Arima, Mulish, Poiret_One } from "next/font/google";
 import { Navbar } from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
+
+
+
+const poiretOne = Poiret_One({
+  variable: "--font-poiret-one",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const arima = Arima({
+  variable: "--font-arima",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const mulish = Mulish({
+  variable: "--font-mulish",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +36,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Bolão DASI",
-  description: "Sistema de palpites para a Copa do Mundo",
+  description: "Sistema de palpites para a Copa do Mundo 2026, feito pelo DASI",
 };
 
 export default function RootLayout({
@@ -27,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${arima.variable} ${mulish.variable} ${poiretOne.variable}`}
     >
       <body>
         <Providers>

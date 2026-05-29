@@ -114,13 +114,13 @@ export function Navbar() {
                                         onClick={closeMenus}
                                         className={styles.dropdownItem}
                                     >
-                                        ✏️ Editar perfil
+                                        Editar perfil
                                     </Link>
                                     <button
                                         className={`${styles.dropdownItem} ${styles.dropdownSignOut}`}
                                         onClick={handleSignOut}
                                     >
-                                        → Sair da conta
+                                        Sair da conta
                                     </button>
                                 </div>
                             )}

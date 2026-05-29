@@ -6,56 +6,37 @@
   color: #f5f5f5;
 }
 
-/* navbar */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 2rem;
-  height: 60px;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.08);
-}
-
-.brand {
-  font-size: 15px;
-  font-weight: 500;
-  color: #a78bfa;
-  letter-spacing: 0.02em;
-}
-
-.userInfo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #888;
-}
-
-.avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(124, 58, 237, 0.12);
-  border: 1px solid #7c3aed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 500;
-  color: #a78bfa;
-}
-
-/* hero */
+/* ── main container ── */
 .main {
   flex: 1;
-  max-width: 680px;
+  max-width: 900px;
+  /* aumentado para acomodar hero com animação */
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
 }
 
+/* ── hero: texto à esquerda + animação à direita ── */
 .hero {
   padding: 72px 0 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Coluna de texto */
+.heroText {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Container da animação Lottie */
+.heroAnimation {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .eyebrow {
@@ -121,7 +102,7 @@
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* sections */
+/* ── divider e sections ── */
 .divider {
   border: none;
   border-top: 0.5px solid rgba(255, 255, 255, 0.08);
@@ -140,7 +121,7 @@
   margin-bottom: 24px;
 }
 
-/* pontuação */
+/* ── pontuação ── */
 .rulesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -175,7 +156,7 @@
   line-height: 1.6;
 }
 
-/* fases */
+/* ── fases ── */
 .phasesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
@@ -212,7 +193,7 @@
   line-height: 1.4;
 }
 
-/* regras */
+/* ── regras gerais ── */
 .generalList {
   list-style: none;
   display: flex;
@@ -244,7 +225,7 @@
   color: #f5f5f5;
 }
 
-/* footer */
+/* ── footer ── */
 .footer {
   padding: 24px 2rem;
   border-top: 0.5px solid rgba(255, 255, 255, 0.08);
@@ -253,7 +234,19 @@
   color: #444;
 }
 
-@media (max-width: 600px) {
+/* ── responsivo ── */
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    padding: 48px 0 40px;
+    gap: 0;
+  }
+
+  /* Em mobile a animação aparece acima do texto */
+  .heroAnimation {
+    order: 1;
+  }
+
   .hero h1 {
     font-size: 28px;
   }

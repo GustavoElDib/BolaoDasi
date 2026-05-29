@@ -1,32 +1,43 @@
-//Style
+// A animação Lottie foi movida para SoccerAnimation.tsx (client component separado)
 import styles from "./page.module.css";
-//Next components
 import Link from "next/link";
+import { SoccerAnimation } from "@/components/animations/SoccerAnimation";
 
 export default async function Home() {
   return (
     <div className={styles.page}>
-
       <main className={styles.main}>
+
+        {/* Hero: texto à esquerda, animação à direita */}
         <section className={styles.hero}>
-          <p className={styles.eyebrow}>Copa do Mundo 2026</p>
-          <h1>
-            Faça seus palpites,{" "}
-            <span className={styles.highlight}>dispute o ranking.</span>
-          </h1>
-          <p>
-            Palpite nos jogos da Copa do Mundo, ganhe pontos pela
-            precisão e suba no ranking geral. Quanto mais difícil
-            a fase, maior a recompensa.
-          </p>
-          <div className={styles.ctas}>
-            <Link href="/games" className={styles.btnPrimary}>
-              Ver jogos
-            </Link>
-            <Link href="/ranking" className={styles.btnSecondary}>
-              Ranking
-            </Link>
+
+          {/* Coluna de texto */}
+          <div className={styles.heroText}>
+            <p className={styles.eyebrow}>Copa do Mundo 2026</p>
+            <h1>
+              Faça seus palpites e{" "}
+              <span className={styles.highlight}>dispute a premiação!</span>
+            </h1>
+            <p>
+              Palpite nos jogos da Copa do Mundo, ganhe pontos pela
+              precisão e suba no ranking geral. Quanto mais difícil
+              a fase, maior a recompensa.
+            </p>
+            <div className={styles.ctas}>
+              <Link href="/games" className={styles.btnPrimary}>
+                Ver jogos
+              </Link>
+              <Link href="/ranking" className={styles.btnSecondary}>
+                Ranking
+              </Link>
+            </div>
           </div>
+
+          {/* Animação Lottie — componente client isolado */}
+          <div className={styles.heroAnimation}>
+            <SoccerAnimation />
+          </div>
+
         </section>
 
         <hr className={styles.divider} />
@@ -93,6 +104,9 @@ export default async function Home() {
           <p className={styles.sectionTitle}>Regras gerais</p>
           <ul className={styles.generalList}>
             <li>
+              Para <strong>concorrer às premiações</strong> basta fazer um pagamento de <strong>R$5,00</strong> para o DASI!
+            </li>
+            <li>
               Os palpites ficam disponíveis até{" "}
               <strong>1 hora antes</strong> do início de cada partida.
             </li>
@@ -107,6 +121,7 @@ export default async function Home() {
             </li>
           </ul>
         </section>
+
       </main>
 
       <footer className={styles.footer}>
