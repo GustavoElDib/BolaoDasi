@@ -113,35 +113,6 @@ Acertar placar exato:
 
 ---
 
-# Como executar
-
-## Instalar dependências
-
-```bash
-npm install
-```
-
----
-
-## Rodar projeto
-
-```bash
-npm run dev
-```
-
----
-
-# Variáveis de Ambiente
-
-Crie um arquivo `.env.local`:
-
-```env
-FOOTBALL_DATA_API_KEY=SUA_CHAVE
-DATABASE_URL=SUA_URL
-```
-
----
-
 # API utilizada
 
 Football Data API:
