@@ -1,3 +1,4 @@
+//arquivo para configurar o NextAuth, que é a biblioteca de autenticação do Next.js. Ele define os provedores de autenticação, as opções de sessão e as páginas personalizadas para login. Neste caso, estamos usando o provedor de credenciais para autenticar os usuários com email e senha, verificando as credenciais no banco de dados usando Prisma e bcrypt para comparar as senhas.
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

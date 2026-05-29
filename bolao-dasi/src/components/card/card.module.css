@@ -1,145 +1,223 @@
+/* Fundo escuro com sotaque roxo */
 .card {
-    background-color: #18181b;
-    border: 1px solid #27272a;
-
-    border-radius: 24px;
-
-    padding: 24px;
-
+    background: #111;
+    border: 0.5px solid rgba(124, 58, 237, 0.2);
+    border-radius: 20px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    transition: border-color 0.2s;
 }
 
+.card:hover {
+    border-color: rgba(124, 58, 237, 0.35);
+}
+
+/* Cabeçalho: fase/grupo à esquerda, data à direita */
 .header {
+    background: #0d0d0d;
+    padding: 13px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 0.5px solid rgba(124, 58, 237, 0.1);
 }
 
+/* Badge roxo com o nome do grupo */
 .group {
-    color: #a1a1aa;
-    font-size: 14px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    background: rgba(124, 58, 237, 0.12);
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 4px;
 }
 
 .stage {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 12px;
+    color: #555;
+    margin-top: 2px;
 }
 
+/* Bloco de data/hora à direita do header */
 .dateContainer {
     text-align: right;
 }
 
-.time {
-    color: #a1a1aa;
-    font-size: 14px;
+.dateContainer p {
+    font-size: 13px;
+    color: #d4d4d4;
 }
 
+.time {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+}
+
+/* Área central: escudo + inputs + escudo */
 .teams {
+    padding: 24px 20px 16px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
 }
 
+/* Coluna de cada time: escudo + nome */
 .team {
-    width: 120px;
-
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-
+    gap: 10px;
     text-align: center;
+    min-width: 0;
 }
 
+.team span {
+    font-size: 13px;
+    color: #f5f5f5;
+    font-weight: 500;
+    /* Evita que nomes longos quebrem o layout */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+/* Container dos dois inputs de placar */
 .inputsContainer {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
+/* Input quadrado para digitar o placar */
 .input {
-    width: 56px;
-    height: 56px;
-
-    border: none;
-    border-radius: 16px;
-
-    background-color: #27272a;
-
+    width: 52px;
+    height: 52px;
+    background: #1a1a1a;
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    border-radius: 12px;
     text-align: center;
-
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 500;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    /* Remove as setinhas do input number */
+    appearance: textfield;
+}
 
-    color: white;
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .input:focus {
-    outline: 2px solid #22c55e;
+    border-color: #7c3aed;
 }
 
+.input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* "×" entre os dois inputs */
 .versus {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
 }
 
+/* Divisor decorativo estilo listras roxas */
+.grassDivider {
+    height: 2px;
+    margin: 0 20px;
+    background: repeating-linear-gradient(90deg,
+            rgba(124, 58, 237, 0.25) 0px,
+            rgba(124, 58, 237, 0.25) 10px,
+            rgba(124, 58, 237, 0.06) 10px,
+            rgba(124, 58, 237, 0.06) 20px);
+    border-radius: 2px;
+}
+
+/* Linha de resultado real + status */
 .resultContainer {
-    background-color: #27272a;
-
-    border-radius: 16px;
-
-    padding: 16px;
-
+    padding: 14px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .resultLabel {
-    font-size: 14px;
-    color: #a1a1aa;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    margin-bottom: 4px;
 }
 
 .result {
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 17px;
+    font-weight: 500;
+    color: #f5f5f5;
 }
 
+/* Badge roxo: palpite aberto */
 .open {
-    color: #22c55e;
-    font-weight: bold;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(124, 58, 237, 0.12);
+    color: #a78bfa;
 }
 
+/* Badge vermelho: palpite encerrado */
 .closed {
-    color: #ef4444;
-    font-weight: bold;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+/* Rodapé com botão de salvar */
+.footer {
+    padding: 0 20px 20px;
 }
 
 .button {
-    height: 48px;
-
+    width: 100%;
+    height: 44px;
+    background: #7c3aed;
     border: none;
-    border-radius: 16px;
-
-    background-color: #16a34a;
-
-    color: white;
-
-    font-size: 16px;
-    font-weight: 600;
-
+    border-radius: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-
-    transition: 0.2s;
+    transition: background 0.2s;
+    font-family: inherit;
+    letter-spacing: 0.02em;
 }
 
-.button:hover {
-    background-color: #15803d;
+.button:hover:not(:disabled) {
+    background: #6d28d9;
 }
 
+/* Botão desabilitado quando jogo encerrou ou está salvando */
 .button:disabled {
-    background-color: #3f3f46;
+    background: #1a1a1a;
+    color: #333;
     cursor: not-allowed;
 }

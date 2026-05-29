@@ -1,13 +1,117 @@
 //Style
 import styles from "./page.module.css";
+//Next components
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className={styles.page}>
+
       <main className={styles.main}>
-        <h1>Home page</h1>
-        <p>Aqui vai ter uma explicação sobre o projeto, parecida com o readme.</p>
+        <section className={styles.hero}>
+          <p className={styles.eyebrow}>Copa do Mundo 2026</p>
+          <h1>
+            Faça seus palpites,{" "}
+            <span className={styles.highlight}>dispute o ranking.</span>
+          </h1>
+          <p>
+            Palpite nos jogos da Copa do Mundo, ganhe pontos pela
+            precisão e suba no ranking geral. Quanto mais difícil
+            a fase, maior a recompensa.
+          </p>
+          <div className={styles.ctas}>
+            <Link href="/games" className={styles.btnPrimary}>
+              Ver jogos
+            </Link>
+            <Link href="/ranking" className={styles.btnSecondary}>
+              Ranking
+            </Link>
+          </div>
+        </section>
+
+        <hr className={styles.divider} />
+
+        <section className={styles.section}>
+          <p className={styles.sectionTitle}>Sistema de pontuação</p>
+          <div className={styles.rulesGrid}>
+            <div className={styles.ruleCard}>
+              <p className={styles.ruleScore}>1 pt</p>
+              <p className={styles.ruleLabel}>Acertou o vencedor</p>
+              <p className={styles.ruleDesc}>
+                Palpite: Brasil 2x1 Argentina
+                <br />
+                Resultado: Brasil 3x0 Argentina
+              </p>
+            </div>
+            <div className={styles.ruleCard}>
+              <p className={styles.ruleScore}>1 pt</p>
+              <p className={styles.ruleLabel}>Acertou o empate</p>
+              <p className={styles.ruleDesc}>
+                Palpite: França 1x1 Espanha
+                <br />
+                Resultado: França 2x2 Espanha
+              </p>
+            </div>
+            <div className={styles.ruleCard}>
+              <p className={styles.ruleScore}>3 pts</p>
+              <p className={styles.ruleLabel}>Placar exato</p>
+              <p className={styles.ruleDesc}>
+                Palpite: Brasil 2x1 Argentina
+                <br />
+                Resultado: Brasil 2x1 Argentina
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <hr className={styles.divider} />
+
+        <section className={styles.section}>
+          <p className={styles.sectionTitle}>Multiplicador por fase</p>
+          <div className={styles.phasesGrid}>
+            {[
+              { mult: "×1", label: "Fase de grupos" },
+              { mult: "×2", label: "Oitavas de final" },
+              { mult: "×3", label: "Quartas de final" },
+              { mult: "×4", label: "Semifinal" },
+              { mult: "×5", label: "Final", highlight: true },
+            ].map(({ mult, label, highlight }) => (
+              <div
+                key={label}
+                className={`${styles.phaseCard} ${highlight ? styles.phaseHighlight : ""}`}
+              >
+                <p className={styles.phaseMult}>{mult}</p>
+                <p className={styles.phaseName}>{label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <hr className={styles.divider} />
+
+        <section className={styles.section}>
+          <p className={styles.sectionTitle}>Regras gerais</p>
+          <ul className={styles.generalList}>
+            <li>
+              Os palpites ficam disponíveis até{" "}
+              <strong>1 hora antes</strong> do início de cada partida.
+            </li>
+            <li>
+              O palpite é bloqueado automaticamente quando o tempo encerra.
+            </li>
+            <li>
+              O ranking é atualizado após a finalização das partidas.
+            </li>
+            <li>
+              Cada usuário pode alterar seu palpite até o bloqueio da partida.
+            </li>
+          </ul>
+        </section>
       </main>
+
+      <footer className={styles.footer}>
+        Desenvolvido pelo Departamento Acadêmico de Sistemas de Informação da USP
+      </footer>
     </div>
   );
 }

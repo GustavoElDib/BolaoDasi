@@ -1,0 +1,87 @@
+/* Página principal dos palpites */
+.page {
+    min-height: 100vh;
+    background: #0a0a0a;
+    padding: 40px 2rem;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Cabeçalho da página */
+.pageHeader {
+    margin-bottom: 32px;
+}
+
+.pageTitle {
+    font-size: 28px;
+    font-weight: 500;
+    color: #f5f5f5;
+    margin-bottom: 6px;
+}
+
+.pageSubtitle {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Destaca "1 hora" em roxo */
+.pageSubtitle strong {
+    color: #a78bfa;
+}
+
+/* Barra de filtros */
+.filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+/* Botão de filtro inativo */
+.filterBtn {
+    padding: 7px 16px;
+    border-radius: 8px;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+    color: #888;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    font-family: inherit;
+}
+
+.filterBtn:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: #f5f5f5;
+}
+
+/* Botão de filtro ativo — roxo */
+.filterBtnActive {
+    background: rgba(124, 58, 237, 0.15);
+    border-color: rgba(124, 58, 237, 0.4);
+    color: #a78bfa;
+}
+
+.filterBtnActive:hover {
+    background: rgba(124, 58, 237, 0.2);
+}
+
+/* Grid de cards responsivo */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+}
+
+/* Mensagem quando não há jogos no filtro */
+.empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 0;
+    color: #444;
+    font-size: 15px;
+}

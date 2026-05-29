@@ -1,3 +1,4 @@
+//rota que recebe o email do usuário, gera um token de recuperação e envia um email com o link para redefinir a senha
 import { prisma }
     from "@/lib/prisma";
 

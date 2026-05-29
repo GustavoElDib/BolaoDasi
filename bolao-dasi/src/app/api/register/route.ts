@@ -1,3 +1,4 @@
+//rota para registrar um novo usuário
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";

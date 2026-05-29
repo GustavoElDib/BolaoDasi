@@ -5,96 +5,173 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id String @id @default(cuid())
+
+  userId String
+
+  type String
+
+  provider String
+
+  providerAccountId String
+
+  refresh_token String?
+
+  access_token String?
+
+  expires_at Int?
+
+  token_type String?
+
+  scope String?
+
+  id_token String?
+
+  session_state String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id String @id @default(cuid())
+
+  sessionToken String @unique
+
+  userId String
+
+  expires DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id           String    @id @default(cuid())
-  nome         String    
-  email        String    @unique 
-  senha        String    
-  
-  palpites     Palpite[]
+  id String @id @default(cuid())
 
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  name String?
+
+  nome String
+
+  email String @unique
+
+  emailVerified DateTime?
+
+  image String?
+
+  senha String
+
+  palpites Palpite[]
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  accounts Account[]
+
+  sessions Session[]
 }
 
 model Fase {
-  id           Int       @id @default(autoincrement()) 
-  nome         String    
-  peso         Int       
+  id   Int    @id @default(autoincrement())
+  nome String @unique
+  peso Int
 
-  partidas     Partida[]
+  partidas Partida[]
 
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TimeFutebol {
-  id           Int       @id @default(autoincrement()) 
-  nome         String    
-  codigo       String?   
+  id     Int     @id @default(autoincrement())
+  nome   String @unique
+  codigo String?
+  crest  String?
 
   partidasComoMandante  Partida[] @relation("TimeMandante")
   partidasComoVisitante Partida[] @relation("TimeVisitante")
 
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Partida {
-  id               Int       @id @default(autoincrement()) 
-  dataPartida      DateTime  
-  placarCasaReal   Int?      
-  placarForaReal   Int?      
-  
-  faseID           Int
-  fase             Fase      @relation(fields: [faseID], references: [id])
 
-  timeUmID         Int
-  timeMandante     TimeFutebol @relation("TimeMandante", fields: [timeUmID], references: [id])
-  
-  timeDoisID       Int
-  timeVisitante    TimeFutebol @relation("TimeVisitante", fields: [timeDoisID], references: [id])
+  id Int @id @default(autoincrement())
 
-  palpites         Palpite[]
+  apiFootballId Int @unique
 
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  dataPartida DateTime
 
-  // Regra de Negócio: Impede que o mesmo jogo seja recriado na mesma data
+  status String @default("SCHEDULED")
+
+  placarCasaReal Int?
+
+  placarForaReal Int?
+
+  faseID Int
+
+  fase Fase @relation(fields: [faseID], references: [id])
+
+  timeUmID Int
+
+  timeMandante TimeFutebol @relation("TimeMandante", fields: [timeUmID], references: [id])
+
+  timeDoisID Int
+
+  timeVisitante TimeFutebol @relation("TimeVisitante", fields: [timeDoisID], references: [id])
+
+  palpites Palpite[]
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
   @@unique([timeUmID, timeDoisID, dataPartida])
 }
 
 model Palpite {
-  id               Int       @id @default(autoincrement()) 
-  palpiteTimeCas   Int       
-  palpiteTimeFor   Int       
-  pontosGanho      Int?      
+  id             Int  @id @default(autoincrement())
+  palpiteTimeCas Int
+  palpiteTimeFor Int
+  pontosGanho    Int?
 
-  usuarioID        String
-  user             User      @relation(fields: [usuarioID], references: [id])
-  
-  partidaID        Int
-  partida          Partida   @relation(fields: [partidaID], references: [id])
+  usuarioID String
+  user      User   @relation(fields: [usuarioID], references: [id])
 
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  partidaID Int
+  partida   Partida @relation(fields: [partidaID], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Regra de Negócio: Um usuário só palpita uma vez por partida
-  @@unique([usuarioID, partidaID]) 
+  @@unique([usuarioID, partidaID])
 }
 
 model PasswordResetToken {
+  id String @id @default(cuid())
 
-  id        String @id @default(cuid())
+  token String @unique
 
-  token     String @unique
-
-  email     String
+  email String
 
   expiresAt DateTime
 
   createdAt DateTime @default(now())
+}
+
+model VerificationToken {
+  identifier String
+
+  token String @unique
+
+  expires DateTime
+
+  @@unique([identifier, token])
 }

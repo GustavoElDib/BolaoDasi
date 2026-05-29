@@ -8,11 +8,10 @@ export async function getWorldCupMatches() {
         `${BASE_URL}/competitions/WC/matches`,
         {
             headers: {
-                "X-Auth-Token":
-                    process.env.FOOTBALL_DATA_API_KEY!,
+                "X-Auth-Token": process.env.FOOTBALL_DATA_API_KEY!,
             },
-
-            cache: "no-store",
+            // Cacheia por 5 minutos em vez de nunca
+            next: { revalidate: 300 },
         }
     );
 
@@ -21,7 +20,5 @@ export async function getWorldCupMatches() {
     }
 
     const data = await response.json();
-
-    //console.log(data);
     return data.matches;
 }

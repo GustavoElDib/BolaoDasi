@@ -1,3 +1,4 @@
+//rota que deleta um usuário
 import { NextResponse }
     from "next/server";
 

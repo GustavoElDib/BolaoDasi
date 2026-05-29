@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Partida" ADD COLUMN     "status" TEXT NOT NULL DEFAULT 'SCHEDULED';

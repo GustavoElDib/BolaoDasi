@@ -1,3 +1,4 @@
+//rota que recebe o token e a nova senha, valida o token, atualiza a senha do usuário e deleta o token
 import bcrypt from "bcrypt";
 
 import { prisma }
