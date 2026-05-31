@@ -68,9 +68,9 @@
 .position_1 {
   width: 26px;
   height: 26px;
-  border-radius: 50%; /* Vira uma bola perfeita */
+  border-radius: 50%;
   background-color: #ffd700;
-  color: #131f24; /* Texto escuro para dar contraste no amarelo */
+  color: #131f24;
   box-shadow: 0 0 24px #ffd70066;
 
   align-items: center;
@@ -79,7 +79,7 @@
 .position_2 {
   width: 26px;
   height: 26px;
-  border-radius: 50%; /* Vira uma bola perfeita */
+  border-radius: 50%;
   background-color: #c0c0c0;
   color: #2e2e2e;
   box-shadow: 0 0 24px #c0c0c066;
@@ -88,10 +88,10 @@
 .position_3 {
   width: 26px;
   height: 26px;
-  border-radius: 50%; /* Vira uma bola perfeita */
+  border-radius: 50%;
   background-color: #cd7f32;
   color: #3f2202;
-  box-shadow: 0 0 24px #cd7f2366;
+  box-shadow: 0 0 24px #cd7f3266;
 }
 
 .avatarPlaceholder {
