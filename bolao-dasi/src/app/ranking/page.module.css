@@ -18,10 +18,10 @@
 }
 
 .pageTitle {
-    font-size: 28px;
-    font-weight: 500;
-    color: #f5f5f5;
-    margin-bottom: 10px;
+  font-size: 28px;
+  font-weight: 500;
+  color: #f5f5f5;
+  margin-bottom: 10px;
 }
 
 .pageSubtitle {
@@ -53,11 +53,45 @@
 }
 
 .positionText {
-  width: 40px;
+  width: 26px;
   color: #afafaf;
   font-size: 1.1rem;
   align-items: center;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 15px;
+}
+
+.position_1 {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%; /* Vira uma bola perfeita */
+  background-color: #ffd700;
+  color: #131f24; /* Texto escuro para dar contraste no amarelo */
+  box-shadow: 0 0 24px #ffd70066;
+
+  align-items: center;
+}
+
+.position_2 {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%; /* Vira uma bola perfeita */
+  background-color: #c0c0c0;
+  color: #2e2e2e;
+  box-shadow: 0 0 24px #c0c0c066;
+}
+
+.position_3 {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%; /* Vira uma bola perfeita */
+  background-color: #cd7f32;
+  color: #3f2202;
+  box-shadow: 0 0 24px #cd7f2366;
 }
 
 .avatarPlaceholder {
