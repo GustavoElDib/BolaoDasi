@@ -1,5 +1,5 @@
 .page {
-  background-color: #0a0a0a;
+  background-color: var(--background);
   min-height: 100vh;
   color: #fff;
   font-family: inherit;
@@ -25,7 +25,7 @@
 }
 
 .destaqueDasi {
-  color: #a78bfa;
+  color: var(--light-purple);
   font-weight: bold;
 }
 
@@ -42,13 +42,14 @@
   padding: 14px 20px;
   border-radius: 16px;
   background-color: transparent;
-  border-bottom: 1px solid #202f36;
+  border-bottom: 1px solid var(--light-purple);
 }
 
 .indicadorPosicao {
   width: 40px;
   color: #afafaf;
   font-size: 1.1rem;
+  align-items: center;
   font-weight: bold;
 }
 
@@ -56,15 +57,15 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: #0a0a0a;
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;  
   font-weight: bold;
   margin-right: 20px;
-  border: 2px solid #a78bfa;
+  border: 2px solid var(--light-purple);
   font-size: 0.9rem;
-  color: #a78bfa;
+  color: var(--light-purple);
 }
 
 .nomeUsuario {
@@ -76,9 +77,9 @@
 
 .pontosTexto {
   font-weight: bold;
-  color: #a78bfa;
+  color: var(--light-purple);
   font-size: 1.2rem;
-  text-shadow: 0 0 12px rgba(231, 175, 253, 0.618);
+  text-shadow: 0 0 12px var(--light-purple);
 }
 
 /* Estilos do Carregamento (Skeleton) */
@@ -92,7 +93,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #0a0a0a;
+  background-color: var(--background);
   margin-right: 20px;
 }
 
@@ -100,14 +101,14 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: #0a0a0a;
+  background-color: var(--background);
   margin-right: 16px;
 }
 
 .capsulaNomeSkeleton {
   height: 16px;
   border-radius: 10px;
-  background-color: #0a0a0a;
+  background-color: var(--background);
   flex: 1;
   margin-right: 20px;
 }
@@ -116,7 +117,7 @@
   height: 14px;
   width: 50px;
   border-radius: 10px;
-  background-color: #0a0a0a;
+  background-color: var(--background);
 }
 
 /* Barra Fixa Inferior */
@@ -127,10 +128,10 @@
   transform: translateX(-50%);
   width: calc(100% - 40px);
   max-width: 560px;
-  background-color: #0a0a0a;
+  background-color: var(--background);
   border-radius: 20px;
   padding: 4px;
-  box-shadow: 0 8px 24px rgba(145, 145, 145, 0.5);
+  box-shadow: 0 4px 24px #a78bfa80;
 }
 
 .itemLinhaAtiva {
