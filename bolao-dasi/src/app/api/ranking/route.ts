@@ -1,6 +1,7 @@
 //rota que retorna o ranking geral dos usuários, ordenado por pontos ganhos
 
 import { prisma } from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 // pesos de cada fase
 const PESOS_FASE: Record<string, number> = {
@@ -118,4 +119,21 @@ export async function getRanking() {
         .sort((a, b) => b.totalPontos - a.totalPontos);
 
     return ranking;
+}
+
+// rota GET para retorno do JSON getRanking
+export async function GET() {
+    try
+    {
+        const ranking = await getRanking();
+        return NextResponse.json(ranking, { status: 200 });
+    }
+    catch (error)
+    {
+        console.error("Erro na rota de ranking:", error);
+        return NextResponse.json(
+            { error: "Erro interno ao carregar o ranking." },
+            { status: 500 }
+        );
+    }
 }
