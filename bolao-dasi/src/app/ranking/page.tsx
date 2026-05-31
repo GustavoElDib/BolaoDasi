@@ -81,8 +81,8 @@ export default function RankingPage() {
               const posicao = index + 1;
               return (
                 <div key={jogador.id} className={styles.rankingItem}>
-                  <div className={styles.positionText}>
-                    {posicao === 1 ? "🥇": posicao === 2 ? "🥈": posicao === 3 ? "🥉": `${posicao}`}
+                  <div className={`${styles.positionText} ${styles[`position_${posicao}`]}`}>
+                    {posicao}
                   </div>
                   <div className={styles.avatarPlaceholder}>
                     {jogador.nome?.substring(0, 2).toUpperCase() || "U"}
@@ -113,8 +113,8 @@ export default function RankingPage() {
         {session?.user && (
           <div className={styles.userBottomBar}>
             <div className={styles.listActiveLine}>
-              <div className={styles.positionText}>
-                {userPosition === 1 ? "🥇": userPosition === 2 ? "🥈": userPosition === 3 ? "🥉": `${userPosition}`}
+              <div className={`${styles.positionText} ${styles[`position_${userPosition}`]}`}>
+                    {userPosition}
                 </div>
               <div className={styles.userAvatar}>
                 {activeUser.nome.substring(0, 2).toUpperCase()}
