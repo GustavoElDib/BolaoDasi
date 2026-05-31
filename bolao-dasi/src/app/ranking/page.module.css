@@ -4,7 +4,7 @@
   color: #fff;
   font-family: inherit;
   padding-bottom: 120px;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .container {
@@ -14,29 +14,36 @@
 }
 
 .header {
-  text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
-.subtituloLiga {
-  color: #afafaf;
-  font-size: 1.1rem;
-  margin: 0;
+.pageTitle {
+    font-size: 28px;
+    font-weight: 500;
+    color: #f5f5f5;
+    margin-bottom: 10px;
 }
 
-.destaqueDasi {
+.pageSubtitle {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.highlightText {
   color: var(--light-purple);
   font-weight: bold;
 }
 
-.listaContainer {
+.listContainer {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 /* Linha de utilizador real */
-.itemLinha {
+.rankingItem {
   display: flex;
   align-items: center;
   padding: 14px 20px;
@@ -45,7 +52,7 @@
   border-bottom: 1px solid var(--light-purple);
 }
 
-.indicadorPosicao {
+.positionText {
   width: 40px;
   color: #afafaf;
   font-size: 1.1rem;
@@ -68,14 +75,14 @@
   color: var(--light-purple);
 }
 
-.nomeUsuario {
+.userName {
   flex: 1;
   font-size: 1.1rem;
   font-weight: 500;
   color: #fff;
 }
 
-.pontosTexto {
+.pointsText {
   font-weight: bold;
   color: var(--light-purple);
   font-size: 1.2rem;
@@ -83,13 +90,13 @@
 }
 
 /* Estilos do Carregamento (Skeleton) */
-.itemLinhaSkeleton {
+.skeletonItem {
   display: flex;
   align-items: center;
   padding: 16px;
 }
 
-.pontoSkeleton {
+.skeletonPoint {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -97,7 +104,7 @@
   margin-right: 20px;
 }
 
-.avatarSkeleton {
+.skeletonAvatar {
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -105,7 +112,7 @@
   margin-right: 16px;
 }
 
-.capsulaNomeSkeleton {
+.skeletonName {
   height: 16px;
   border-radius: 10px;
   background-color: var(--background);
@@ -113,7 +120,7 @@
   margin-right: 20px;
 }
 
-.capsulaPontosSkeleton {
+.skeletonPoints {
   height: 14px;
   width: 50px;
   border-radius: 10px;
@@ -121,7 +128,7 @@
 }
 
 /* Barra Fixa Inferior */
-.barraFixaUsuario {
+.userBottomBar {
   position: fixed;
   bottom: 25px;
   left: 50%;
@@ -134,33 +141,35 @@
   box-shadow: 0 4px 24px #a78bfa80;
 }
 
-.itemLinhaAtiva {
+.listActiveLine {
   display: flex;
   align-items: center;
   padding: 12px 16px;
 }
 
-.avatarUsuarioAtivo {
+.userAvatar {
   width: 45px;
   height: 45px;
+  background-color: #7c3aed33;
   border-radius: 50%;
-  background-color: #a370f7;
+  border: 1px solid #7c3aed;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   margin-right: 20px;
   font-size: 0.9rem;
+  color: #a78bfa;
 }
 
-.nomeUsuarioAtivo {
+.userNameBottomBar {
   flex: 1;
   font-size: 1.1rem;
   font-weight: bold;
   color: #fff;
 }
 
-.pontosTextoAtivo {
+.pointsTextBottomBar {
   font-weight: bold;
   color: #fff;
   font-size: 1.1rem;
