@@ -1,99 +1,121 @@
+//rota que retorna o ranking geral dos usuários, ordenado por pontos ganhos
+
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
-const STAGE_WEIGHT : Record<string, number> = {
-    GROUP_STAGE: 1,
-    ROUND_OF_16: 2,
-    QUARTER_FINALS: 3,
-    SEMI_FINALS: 4,
-    FINALS: 5
-}
+// pesos de cada fase
+const PESOS_FASE: Record<string, number> = {
+    "GROUP_STAGE": 1,
+    "ROUND_OF_16": 2,
+    "QUARTER_FINALS": 3,
+    "SEMI_FINALS": 4,
+    "FINAL": 5,
+};
 
-function calculateAllPointsInMatch(golsCasa: number, golsFora: number, golsCasaPalpite: number, golsForaPalpite: number): number{
-
-    if(golsCasa == golsCasaPalpite && golsFora == golsForaPalpite){
-        return 3; //acertou tudo
+// calcula pontos brutos (sem multiplicador de acordo com a fase)
+function calcularPontosBrutos(
+    palpiteCasa: number,
+    palpiteFora: number,
+    realCasa: number,
+    realFora: number
+): number {
+    // placar exato
+    if (palpiteCasa === realCasa && palpiteFora === realFora) {
+        return 3;
     }
 
-    const resultadoReal = Math.sign(golsCasa - golsFora);
-    const resultadoPalpite = Math.sign(golsCasaPalpite - golsForaPalpite);
-    if(resultadoReal == resultadoPalpite){
-        return 1; //acertou ao menos o vencedor/empate
+    // acertou vencedor ou empate
+    const palpiteResultado = Math.sign(palpiteCasa - palpiteFora);
+    const realResultado = Math.sign(realCasa - realFora);
+
+    if (palpiteResultado === realResultado) {
+        return 1;
     }
 
-    return 0; //errou tudo
+    return 0;
 }
 
-function calculateAllPointsWithStageWeight(allPointsInMatch: number, stage: string) : number{ //calcula os pontos reais usando os pesos da const declarada lá no começo
-    const peso = STAGE_WEIGHT[stage] || 1;
-    return peso * allPointsInMatch;
+// calcula pontos com multiplicador de fase
+export function calcularPontos(
+    palpiteCasa: number,
+    palpiteFora: number,
+    realCasa: number,
+    realFora: number,
+    nomesFase: string
+): number {
+    const pontosBrutos = calcularPontosBrutos(
+        palpiteCasa,
+        palpiteFora,
+        realCasa,
+        realFora
+    );
+
+    const peso = PESOS_FASE[nomesFase] ?? 1;
+
+    return pontosBrutos * peso;
 }
 
-async function updatePoints(partidaID : number) {
+// função que atualiza os pontos de todos os palpites de uma partida finalizada
+// chamar isso após uma partida ser marcada como FINISHED
+export async function atualizarPontosPartida(partidaId: number) {
     const partida = await prisma.partida.findUnique({
-        where: {id: partidaID},
-        include: {palpites: true},
+        where: { id: partidaId },
+        include: {
+            fase: true,
+            palpites: true,
+        },
     });
 
-    if(!partida){
-        throw new Error("Partida não encontrada!");
+    if (!partida) throw new Error("Partida não encontrada");
+
+    if (partida.status !== "FINISHED") {
+        throw new Error("Partida ainda não finalizada");
     }
 
-    if(partida.status != "FINISHED"){
-        throw new Error("Partida não finalizada!");
+    if (
+        partida.placarCasaReal === null ||
+        partida.placarForaReal === null
+    ) {
+        throw new Error("Placar real não registrado");
     }
 
-    if(partida.placarCasaReal == null || partida.placarForaReal == null){
-        throw new Error("Partida sem placar!");
-    }
-
-    //esse promise.all ta processando tudo usando as funções anteriores e atualizando os pontos
+    // atualiza cada palpite da partida
     await Promise.all(
-      partida.palpites.map(async (palpite) => {
-          const allPointsInMatch = calculateAllPointsInMatch(
-              partida.placarCasaReal!, partida.placarForaReal!,
-              palpite.palpiteTimeCas!, palpite.palpiteTimeFor!
-          );
+        partida.palpites.map((palpite) => {
+            const pontos = calcularPontos(
+                palpite.palpiteTimeCas,
+                palpite.palpiteTimeFor,
+                partida.placarCasaReal!,
+                partida.placarForaReal!,
+                partida.fase.nome
+            );
 
-          const finalPoints = calculateAllPointsWithStageWeight(allPointsInMatch, partida.status); //aq deveria ser partida.fase (o atributo "fase" da tabela
-                                                                                                           //Partida, mas por algum motivo n ta achando) :/
-          return prisma.palpite.update({
-              where: {id: palpite.id},
-              data: {pontosGanho: finalPoints},
-          })
-      })
+            return prisma.palpite.update({
+                where: { id: palpite.id },
+                data: { pontosGanho: pontos },
+            });
+        })
     );
 }
 
-async function getRanking(){
-    const users = await prisma.user.findMany({
-        include: { palpites: true},
+// função que retorna o ranking geral dos usuários
+export async function getRanking() {
+    const usuarios = await prisma.user.findMany({
+        include: {
+            palpites: true,
+        },
     });
 
-    const ranking = users.map((user) => {
-        const totalPoints = user.palpites.reduce((accumulate, palpites) =>{
-            return accumulate + (palpites.pontosGanho || 0);
-        }, 0); //calcula os pontos ganhos até agora para montar o ranking
-
-
-        return {
+    const ranking = usuarios
+        .map((user) => ({
             id: user.id,
-            name: user.name,
-            totalPoints: totalPoints,
+            nome: user.nome,
+            totalPontos: user.palpites.reduce(
+                (acc, p) => acc + (p.pontosGanho ?? 0),
+                0
+            ),
             totalPalpites: user.palpites.length,
-        }
-    });
+        }))
+        .sort((a, b) => b.totalPontos - a.totalPontos);
 
-    return ranking.sort((a: { totalPoints: number; }, b: { totalPoints: number; }) => b.totalPoints - a.totalPoints);
+    return ranking;
 }
-
-export async function GET(){ //retorno em json do getRanking
-    try{
-        const rankingData = await getRanking();
-        return NextResponse.json(rankingData, {status: 200});
-    }catch(error){
-        console.error("Erro ao gerar ranking: " + error);
-        return NextResponse.json({error: "Erro interno ao gerar ranking"}, {status: 500});
-    }
-}
-
