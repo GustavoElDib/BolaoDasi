@@ -43,8 +43,11 @@ export default function RankingPage() {
 
   // 3. Procura dinamicamente o utilizador logado dentro do ranking real pelo ID ou Nome
   // Se ele não for encontrado (ou não tiver palpites), mostra 0 XP por padrão
-  const userFind = ranking.find((j) => {
+  let userPosition: number = 0;
+
+  const userFind = ranking.find((j, index) => {
     const userAuth = session?.user as any;
+    userPosition = index + 1;
     return (
       j.id === userAuth?.id ||
       j.nome?.toLowerCase() === userAuth?.name?.toLowerCase()
@@ -110,7 +113,9 @@ export default function RankingPage() {
         {session?.user && (
           <div className={styles.userBottomBar}>
             <div className={styles.listActiveLine}>
-              <div className={styles.positionText}>-</div>
+              <div className={styles.positionText}>
+                {userPosition === 1 ? "🥇": userPosition === 2 ? "🥈": userPosition === 3 ? "🥉": `${userPosition}`}
+                </div>
               <div className={styles.userAvatar}>
                 {activeUser.nome.substring(0, 2).toUpperCase()}
               </div>
