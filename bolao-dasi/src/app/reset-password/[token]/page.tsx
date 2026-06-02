@@ -21,11 +21,6 @@ export default function ResetPasswordPage() {
             return;
         }
 
-        if (senha.length < 6) {
-            showToast("A senha deve ter pelo menos 6 caracteres.", "error");
-            return;
-        }
-
         if (senha !== confirmar) {
             showToast("As senhas não coincidem.", "error");
             return;
