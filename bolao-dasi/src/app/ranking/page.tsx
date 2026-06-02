@@ -4,60 +4,63 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
 
-// 1. Tipagem para os jogadores que vêm da API
-interface rankingUsers {
+// Tipagem para os jogadores que vêm da API
+interface RankingUser {
   id: string | number;
   nome: string | null;
   totalPontos: number;
   totalPalpites: number;
 }
 
+// Tipagem do usuário da sessão NextAuth
+// Extende o tipo padrão para incluir o id que o authOptions retorna
+interface SessionUser {
+  id?: string;
+  name?: string | null;
+  email?: string | null;
+}
+
 export default function RankingPage() {
   const { data: session } = useSession();
-  // Estados para gerir os dados da API e o carregamento
-  const [ranking, setRanking] = useState<rankingUsers[]>([]);
+  const [ranking, setRanking] = useState<RankingUser[]>([]);
   const [carregando, setCarregando] = useState(true);
 
-  // useEffect dispara o pedido assim que a página é montada no ecrã
+  // useEffect dispara o pedido assim que a página é montada
   useEffect(() => {
     async function loadData() {
       try {
-        // Faz o GET na rota da API que criaste
-        const response = await fetch("/api/ranking", {
-          method: "GET",
-        });
+        const response = await fetch("/api/ranking");
 
         if (response.ok) {
           const data = await response.json();
           setRanking(data);
         }
       } catch (error) {
-        console.error("Erro ao procurar o ranking:", error);
+        console.error("Erro ao buscar o ranking:", error);
       } finally {
-        setCarregando(false); // Desliga o efeito de carregamento (Skeletons)
+        setCarregando(false);
       }
     }
 
     loadData();
   }, []);
 
-  // 3. Procura dinamicamente o utilizador logado dentro do ranking real pelo ID ou Nome
-  // Se ele não for encontrado (ou não tiver palpites), mostra 0 XP por padrão
-  let userPosition: number = 0;
-
-  const userFind = ranking.find((j, index) => {
-    const userAuth = session?.user as any;
-    userPosition = index + 1;
-    return (
+  // Busca a posição do usuário logado no ranking
+  // findIndex retorna -1 se não encontrar, por isso somamos 1 apenas se achar
+  const userAuth = session?.user as SessionUser;
+  const userIndex = ranking.findIndex(
+    (j) =>
       j.id === userAuth?.id ||
       j.nome?.toLowerCase() === userAuth?.name?.toLowerCase()
-    );
-  });
+  );
 
-  // Criamos o objeto final garantindo que o nome NUNCA seja null
+  // userIndex === -1 significa que o usuário não está no ranking ainda
+  const userPosition = userIndex >= 0 ? userIndex + 1 : 0;
+  const userInRanking = userIndex >= 0 ? ranking[userIndex] : null;
+
   const activeUser = {
-    nome: userFind?.nome || session?.user?.name || "O Meu Perfil",
-    totalPontos: userFind?.totalPontos ?? 0,
+    nome: userInRanking?.nome || session?.user?.name || "Meu Perfil",
+    totalPontos: userInRanking?.totalPontos ?? 0,
   };
 
   return (
@@ -66,22 +69,25 @@ export default function RankingPage() {
         {/* Cabeçalho */}
         <header className={styles.header}>
           <h1 className={styles.pageTitle}>Ranking</h1>
-            <p className={styles.pageSubtitle}>
-              A classificação dos {" "}
-                <span className={styles.highlightText}>melhores palpiteiros</span>
-                {" "} do Bolão DASI
-            </p>
+          <p className={styles.pageSubtitle}>
+            A classificação dos{" "}
+            <span className={styles.highlightText}>melhores palpiteiros</span>
+            {" "}do Bolão DASI
+          </p>
         </header>
 
-        {/* Lista de Utilizadores */}
+        {/* Lista de usuários */}
         <div className={styles.listContainer}>
-          {/* Mostra a lista real da base de dados quando terminar de carregar */}
+          {/* Lista real quando terminar de carregar */}
           {!carregando &&
             ranking.map((jogador, index) => {
               const posicao = index + 1;
               return (
                 <div key={jogador.id} className={styles.rankingItem}>
-                  <div className={`${styles.positionText} ${styles[`position_${posicao}`]}`}>
+                  <div
+                    className={`${styles.positionText} ${styles[`position_${posicao}` as keyof typeof styles] ?? ""
+                      }`}
+                  >
                     {posicao}
                   </div>
                   <div className={styles.avatarPlaceholder}>
@@ -97,7 +103,7 @@ export default function RankingPage() {
               );
             })}
 
-          {/* SKELETONS: Traços cinzentos enquanto a API responde */}
+          {/* Skeletons enquanto a API responde */}
           {carregando &&
             [1, 2, 3, 4, 5].map((i) => (
               <div key={i} className={styles.skeletonItem}>
@@ -109,13 +115,16 @@ export default function RankingPage() {
             ))}
         </div>
 
-        {/* Barra Fixa Inferior Dinâmica (Baseada no utilizador da sessão) */}
+        {/* Barra fixa inferior com a posição do usuário logado */}
         {session?.user && (
           <div className={styles.userBottomBar}>
             <div className={styles.listActiveLine}>
-              <div className={`${styles.positionText} ${styles[`position_${userPosition}`]}`}>
-                    {userPosition}
-                </div>
+              <div
+                className={`${styles.positionText} ${styles[`position_${userPosition}` as keyof typeof styles] ?? ""
+                  }`}
+              >
+                {userPosition || "–"}
+              </div>
               <div className={styles.userAvatar}>
                 {activeUser.nome.substring(0, 2).toUpperCase()}
               </div>
