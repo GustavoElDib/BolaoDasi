@@ -112,7 +112,7 @@ export function RankingList() {
                 className={`${styles.positionText} ${styles[`position_${userPosition}` as keyof typeof styles] ?? ""
                   }`}
               >
-                {userPosition || "–"}
+                {userPosition || "-"}
               </div>
               <div className={styles.userAvatar}>
                 {activeUser.nome.substring(0, 2).toUpperCase()}
