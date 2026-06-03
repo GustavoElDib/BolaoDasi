@@ -72,7 +72,6 @@ export default function ResetPasswordPage() {
                     {done ? (
                         <>
                             <div className={styles.header}>
-                                <span className={styles.trophy}>✅</span>
                                 <h1 className={styles.title}>Senha alterada!</h1>
                                 <p className={styles.subtitle}>
                                     Sua senha foi redefinida com sucesso.
@@ -89,7 +88,6 @@ export default function ResetPasswordPage() {
                         <>
                             {/* Cabeçalho */}
                             <div className={styles.header}>
-                                <span className={styles.trophy}>🔒</span>
                                 <h1 className={styles.title}>Nova senha</h1>
                                 <p className={styles.subtitle}>
                                     Escolha uma senha segura para sua conta.

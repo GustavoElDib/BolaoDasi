@@ -61,7 +61,6 @@ export default function ForgotPasswordPage() {
                     {sent ? (
                         <>
                             <div className={styles.header}>
-                                <span className={styles.trophy}>📬</span>
                                 <h1 className={styles.title}>E-mail enviado!</h1>
                                 <p className={styles.subtitle}>
                                     Verifique sua caixa de entrada e siga
@@ -70,7 +69,7 @@ export default function ForgotPasswordPage() {
                             </div>
                             <div className={styles.footer}>
                                 <Link href="/login" className={styles.link}>
-                                    ← Voltar para o login
+                                    Voltar para o login
                                 </Link>
                             </div>
                         </>
@@ -78,7 +77,6 @@ export default function ForgotPasswordPage() {
                         <>
                             {/* Cabeçalho */}
                             <div className={styles.header}>
-                                <span className={styles.trophy}>🔑</span>
                                 <h1 className={styles.title}>Recuperar senha</h1>
                                 <p className={styles.subtitle}>
                                     Digite seu e-mail e enviaremos um
@@ -124,7 +122,7 @@ export default function ForgotPasswordPage() {
                             {/* Link de volta */}
                             <div className={styles.footer}>
                                 <Link href="/login" className={styles.link}>
-                                    ← Voltar para o login
+                                    Voltar para o login
                                 </Link>
                             </div>
                         </>

@@ -75,7 +75,6 @@ export default function LoginPage() {
 
                     {/* Cabeçalho com ícone e título */}
                     <div className={styles.header}>
-                        <span className={styles.trophy}>🏆</span>
                         <h1 className={styles.title}>Bolão DASI</h1>
                         <p className={styles.subtitle}>
                             Entre para fazer seus palpites

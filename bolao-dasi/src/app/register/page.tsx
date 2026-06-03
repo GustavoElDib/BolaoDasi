@@ -66,7 +66,6 @@ export default function RegisterPage() {
 
                     {/* Cabeçalho */}
                     <div className={styles.header}>
-                        <span className={styles.trophy}>🏆</span>
                         <h1 className={styles.title}>Criar conta</h1>
                         <p className={styles.subtitle}>
                             Junte-se ao bolão da Copa
