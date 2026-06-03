@@ -1,4 +1,3 @@
-//arquivo para sincronizar as partidas da copa do mundo com a base de dados local usando o prisma
 import { prisma } from "@/lib/prisma";
 import { getWorldCupMatches } from "@/services/footballData";
 
@@ -6,23 +5,19 @@ export async function syncMatches() {
     const matches = await getWorldCupMatches();
 
     for (const match of matches) {
-        if (!match.homeTeam?.name || !match.awayTeam?.name) {
-            continue;
-        }
+        if (!match.homeTeam?.name || !match.awayTeam?.name) continue;
 
-        // cria/busca fase
+        // Cria/atualiza fase
         const fase = await prisma.fase.upsert({
             where: { nome: match.stage },
             update: {},
             create: { nome: match.stage, peso: 1 },
         });
 
-        // cria/busca time mandante
+        // Cria/atualiza time mandante com crest
         const mandante = await prisma.timeFutebol.upsert({
             where: { nome: match.homeTeam.name },
-            update: {
-                crest: match.homeTeam.crest || null,  // atualiza se mudar
-            },
+            update: { crest: match.homeTeam.crest || null },
             create: {
                 nome: match.homeTeam.name,
                 codigo: match.homeTeam.tla || "",
@@ -30,12 +25,10 @@ export async function syncMatches() {
             },
         });
 
-        // cria/busca visitante 
+        // Cria/atualiza time visitante com crest
         const visitante = await prisma.timeFutebol.upsert({
             where: { nome: match.awayTeam.name },
-            update: {
-                crest: match.awayTeam.crest || null,
-            },
+            update: { crest: match.awayTeam.crest || null },
             create: {
                 nome: match.awayTeam.name,
                 codigo: match.awayTeam.tla || "",
@@ -43,7 +36,8 @@ export async function syncMatches() {
             },
         });
 
-        // upsert da partida
+        // Upsert da partida — cria se não existir, atualiza status e placar se existir
+        // Isso garante que partidas finalizadas tenham o placar real salvo
         await prisma.partida.upsert({
             where: { apiFootballId: match.id },
             update: {

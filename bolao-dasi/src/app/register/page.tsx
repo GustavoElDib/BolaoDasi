@@ -9,25 +9,29 @@ import styles from "@/app/auth.module.css";
 export default function RegisterPage() {
     const router = useRouter();
 
-    // Estado dos campos do formulário de cadastro
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [confirmarSenha, setConfirmarSenha] = useState("");
     const [loading, setLoading] = useState(false);
 
     const { toast, showToast, hideToast } = useToast();
 
     async function handleRegister() {
-        // Validação básica antes de enviar para a API
-        if (!nome.trim() || !email.trim() || !senha.trim()) {
+        // Validações antes de enviar para a API
+        if (!nome.trim() || !email.trim() || !senha.trim() || !confirmarSenha.trim()) {
             showToast("Preencha todos os campos.", "error");
+            return;
+        }
+
+        if (senha !== confirmarSenha) {
+            showToast("As senhas não coincidem.", "error");
             return;
         }
 
         try {
             setLoading(true);
 
-            // Chama a rota POST /api/register que cria o usuário no banco
             const response = await fetch("/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -36,8 +40,6 @@ export default function RegisterPage() {
 
             if (response.ok) {
                 showToast("Conta criada com sucesso!", "success");
-
-                // Aguarda 1.5s para o usuário ver o toast antes de redirecionar
                 setTimeout(() => router.push("/login"), 1500);
             } else {
                 const data = await response.json();
@@ -63,8 +65,6 @@ export default function RegisterPage() {
 
             <div className={styles.page}>
                 <div className={styles.card}>
-
-                    {/* Cabeçalho */}
                     <div className={styles.header}>
                         <h1 className={styles.title}>Criar conta</h1>
                         <p className={styles.subtitle}>
@@ -74,7 +74,6 @@ export default function RegisterPage() {
 
                     <hr className={styles.divider} />
 
-                    {/* Formulário de cadastro */}
                     <div className={styles.form}>
                         <div className={styles.field}>
                             <label className={styles.label} htmlFor="nome">
@@ -121,6 +120,25 @@ export default function RegisterPage() {
                             />
                         </div>
 
+                        <div className={styles.field}>
+                            <label className={styles.label} htmlFor="confirmarSenha">
+                                Confirmar senha
+                            </label>
+                            <input
+                                id="confirmarSenha"
+                                type="password"
+                                placeholder="••••••••"
+                                className={styles.input}
+                                value={confirmarSenha}
+                                onChange={(e) => setConfirmarSenha(e.target.value)}
+                                autoComplete="off"
+                                // Permite pressionar Enter para cadastrar
+                                onKeyDown={(e) =>
+                                    e.key === "Enter" && handleRegister()
+                                }
+                            />
+                        </div>
+
                         <button
                             className={styles.btnPrimary}
                             onClick={handleRegister}
@@ -130,7 +148,6 @@ export default function RegisterPage() {
                         </button>
                     </div>
 
-                    {/* Link para login */}
                     <div className={styles.footer}>
                         <p className={styles.footerText}>
                             Já tem conta?{" "}
