@@ -1,4 +1,3 @@
-//arquivo que renderiza o formulário de edição do perfil, onde o usuário pode alterar seu nome e email, além de ter a opção de excluir sua conta. Ele utiliza estados para controlar os valores dos campos, o estado de carregamento e a confirmação de exclusão. Também utiliza o hook useToast para exibir mensagens de feedback ao usuário
 "use client";
 
 import { useState } from "react";
@@ -13,9 +12,12 @@ type Props = {
         nome: string;
         email: string;
     };
+    // Passado pela page.tsx (server component) que lê o process.env
+    // Client components não acessam process.env diretamente
+    isModerator: boolean;
 };
 
-export function ProfileForm({ user }: Props) {
+export function ProfileForm({ user, isModerator }: Props) {
     const [nome, setNome] = useState(user.nome);
     const [email, setEmail] = useState(user.email);
     const [loading, setLoading] = useState(false);
@@ -122,42 +124,44 @@ export function ProfileForm({ user }: Props) {
                 </button>
             </div>
 
-            {/* zona de perigo */}
-            <div className={styles.dangerZone}>
-                <p className={styles.dangerTitle}>Zona de perigo</p>
-                <p className={styles.dangerDesc}>
-                    Excluir sua conta é permanente. Todos os seus palpites
-                    serão apagados.
-                </p>
+            {/* Zona de perigo — oculta para o moderador */}
+            {!isModerator && (
+                <div className={styles.dangerZone}>
+                    <p className={styles.dangerTitle}>Zona de perigo</p>
+                    <p className={styles.dangerDesc}>
+                        Excluir sua conta é permanente. Todos os seus palpites
+                        serão apagados.
+                    </p>
 
-                {!confirmDelete ? (
-                    <button
-                        className={styles.btnDanger}
-                        onClick={() => setConfirmDelete(true)}
-                    >
-                        Excluir minha conta
-                    </button>
-                ) : (
-                    <div className={styles.confirmRow}>
-                        <span className={styles.confirmText}>
-                            Tem certeza? Esta ação não pode ser desfeita.
-                        </span>
+                    {!confirmDelete ? (
                         <button
-                            className={styles.btnDangerConfirm}
-                            onClick={handleDelete}
-                            disabled={deleting}
+                            className={styles.btnDanger}
+                            onClick={() => setConfirmDelete(true)}
                         >
-                            {deleting ? "Excluindo..." : "Sim, excluir"}
+                            Excluir minha conta
                         </button>
-                        <button
-                            className={styles.btnCancel}
-                            onClick={() => setConfirmDelete(false)}
-                        >
-                            Cancelar
-                        </button>
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <div className={styles.confirmRow}>
+                            <span className={styles.confirmText}>
+                                Tem certeza? Esta ação não pode ser desfeita.
+                            </span>
+                            <button
+                                className={styles.btnDangerConfirm}
+                                onClick={handleDelete}
+                                disabled={deleting}
+                            >
+                                {deleting ? "Excluindo..." : "Sim, excluir"}
+                            </button>
+                            <button
+                                className={styles.btnCancel}
+                                onClick={() => setConfirmDelete(false)}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
         </>
     );
 }

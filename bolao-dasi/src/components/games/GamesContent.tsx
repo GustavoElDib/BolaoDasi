@@ -1,11 +1,13 @@
-// Arquivo que exibe os jogos e os filtros para os palpites
 "use client";
 
 import { useMemo, useState } from "react";
 import { Card } from "@/components/card/card";
 import { Match } from "@/types/match";
 import { EmptyAnimation } from "@/components/animations/EmptyAnimations";
-import styles from "./games.module.css";
+import styles from "../../app/games/page.module.css";
+
+// Quantos cards mostrar inicialmente e a cada "ver mais"
+const PAGE_SIZE = 12;
 
 type Prediction = {
     partidaID: number;
@@ -19,66 +21,64 @@ type Props = {
     predictions: Prediction[];
 };
 
-// Mensagens de estado vazio por filtro
 const EMPTY_MESSAGES = {
     all: "Nenhum jogo disponível.",
-    predicted: "Ops! Você ainda não fez nenhum palpite...",
+    predicted: "Você ainda não fez nenhum palpite.",
     not_predicted: "Você já palpitou em todos os jogos!",
 };
 
 export function GamesContent({ matches, predictions }: Props) {
-    // Estado do filtro ativo: todos, já palpitados ou não palpitados
     const [filter, setFilter] = useState<
         "all" | "predicted" | "not_predicted"
     >("all");
 
-    // Transforma o array de palpites em um Map para buscas O(1)
-    // A chave é o partidaID (= apiFootballId da partida)
+    // Quantos jogos estão visíveis no momento — começa com PAGE_SIZE
+    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+    // Sempre que o filtro muda, reseta para a primeira "página"
+    function handleFilterChange(newFilter: typeof filter) {
+        setFilter(newFilter);
+        setVisibleCount(PAGE_SIZE);
+    }
+
+    // Map de palpites para buscas O(1)
     const predictionsMap = useMemo(() => {
-        return new Map(
-            predictions.map((prediction) => [
-                prediction.partidaID,
-                prediction,
-            ])
-        );
+        return new Map(predictions.map((p) => [p.partidaID, p]));
     }, [predictions]);
 
-    // Filtra os jogos de acordo com o filtro ativo
-    // useMemo evita recalcular quando outros estados mudam
+    // Lista filtrada completa
     const filteredMatches = useMemo(() => {
         if (filter === "all") return matches;
-
-        if (filter === "predicted") {
-            // Mostra só os jogos que têm palpite no Map
-            return matches.filter((match) => predictionsMap.has(match.id));
-        }
-
-        // Mostra só os jogos que NÃO têm palpite no Map
-        return matches.filter((match) => !predictionsMap.has(match.id));
+        if (filter === "predicted")
+            return matches.filter((m) => predictionsMap.has(m.id));
+        return matches.filter((m) => !predictionsMap.has(m.id));
     }, [filter, matches, predictionsMap]);
+
+    // Fatia visível — cresce quando o usuário clica em "ver mais"
+    const visibleMatches = filteredMatches.slice(0, visibleCount);
+    const hasMore = visibleCount < filteredMatches.length;
+    const remaining = filteredMatches.length - visibleCount;
 
     return (
         <>
-            {/* Barra de filtros */}
+            {/* Filtros */}
             <div className={styles.filters}>
                 <button
-                    onClick={() => setFilter("all")}
+                    onClick={() => handleFilterChange("all")}
                     className={`${styles.filterBtn} ${filter === "all" ? styles.filterBtnActive : ""
                         }`}
                 >
                     Todos ({matches.length})
                 </button>
-
                 <button
-                    onClick={() => setFilter("predicted")}
+                    onClick={() => handleFilterChange("predicted")}
                     className={`${styles.filterBtn} ${filter === "predicted" ? styles.filterBtnActive : ""
                         }`}
                 >
                     Já palpitados ({predictionsMap.size})
                 </button>
-
                 <button
-                    onClick={() => setFilter("not_predicted")}
+                    onClick={() => handleFilterChange("not_predicted")}
                     className={`${styles.filterBtn} ${filter === "not_predicted" ? styles.filterBtnActive : ""
                         }`}
                 >
@@ -86,10 +86,8 @@ export function GamesContent({ matches, predictions }: Props) {
                 </button>
             </div>
 
-            {/* Grid de cards ou estado vazio com animação */}
+            {/* Grid ou estado vazio */}
             {filteredMatches.length === 0 ? (
-                // Estado vazio — só aparece nos filtros "palpitados" e "não palpitados"
-                // O filtro "todos" nunca fica vazio enquanto houver jogos no banco
                 <div className={styles.emptyState}>
                     <EmptyAnimation />
                     <p className={styles.emptyText}>
@@ -97,16 +95,34 @@ export function GamesContent({ matches, predictions }: Props) {
                     </p>
                 </div>
             ) : (
-                <div className={styles.grid}>
-                    {filteredMatches.map((match) => (
-                        <Card
-                            key={match.id}
-                            match={match}
-                            // Passa o palpite existente se o usuário já palpitou neste jogo
-                            prediction={predictionsMap.get(match.id)}
-                        />
-                    ))}
-                </div>
+                <>
+                    <div className={styles.grid}>
+                        {visibleMatches.map((match) => (
+                            <Card
+                                key={match.id}
+                                match={match}
+                                prediction={predictionsMap.get(match.id)}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Botão "ver mais" — só aparece se ainda houver jogos escondidos */}
+                    {hasMore && (
+                        <div className={styles.loadMore}>
+                            <button
+                                className={styles.loadMoreBtn}
+                                onClick={() =>
+                                    setVisibleCount((v) => v + PAGE_SIZE)
+                                }
+                            >
+                                Ver mais {Math.min(remaining, PAGE_SIZE)} jogos
+                                <span className={styles.loadMoreCount}>
+                                    {remaining} restantes
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </>
     );

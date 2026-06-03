@@ -9,7 +9,6 @@ import styles from "./page.module.css";
 export default async function GamesPage() {
     const session = await getServerSession(authOptions);
 
-    // Redireciona para login se não estiver autenticado
     if (!session?.user?.email) redirect("/login");
 
     const user = await prisma.user.findUnique({
@@ -18,26 +17,32 @@ export default async function GamesPage() {
 
     if (!user) redirect("/login");
 
-    // Busca partidas e palpites do usuário em paralelo para melhor performance
+    // Busca apenas os dados essenciais — sem relações pesadas desnecessárias
     const [partidas, palpites] = await Promise.all([
         prisma.partida.findMany({
-            include: {
-                timeMandante: true,
-                timeVisitante: true,
-                fase: true,
+            select: {
+                apiFootballId: true,
+                dataPartida: true,
+                status: true,
+                placarCasaReal: true,
+                placarForaReal: true,
+                timeMandante: { select: { nome: true, crest: true } },
+                timeVisitante: { select: { nome: true, crest: true } },
+                fase: { select: { nome: true } },
             },
             orderBy: { dataPartida: "asc" },
         }),
         prisma.palpite.findMany({
             where: { usuarioID: user.id },
-            // Inclui a partida para poder pegar o apiFootballId
-            include: { partida: true },
+            select: {
+                palpiteTimeCas: true,
+                palpiteTimeFor: true,
+                pontosGanho: true,
+                partida: { select: { apiFootballId: true } },
+            },
         }),
     ]);
 
-    // Remapeia os palpites usando apiFootballId como chave
-    // Isso é necessário porque o Card usa match.id (= apiFootballId)
-    // e precisamos que a chave do predictionsMap bata com esse valor
     const palpitesMapped = palpites.map((p) => ({
         partidaID: p.partida.apiFootballId,
         palpiteTimeCas: p.palpiteTimeCas,
@@ -45,7 +50,6 @@ export default async function GamesPage() {
         pontosGanho: p.pontosGanho,
     }));
 
-    // Converte os dados do banco para o formato Match esperado pelo Card
     const matches: Match[] = partidas.map((partida) => ({
         id: partida.apiFootballId,
         utcDate: partida.dataPartida.toISOString(),
@@ -70,7 +74,6 @@ export default async function GamesPage() {
     return (
         <div className={styles.page}>
             <div className={styles.container}>
-                {/* Cabeçalho da página */}
                 <div className={styles.pageHeader}>
                     <h1 className={styles.pageTitle}>Seus Palpites</h1>
                     <p className={styles.pageSubtitle}>
@@ -80,7 +83,7 @@ export default async function GamesPage() {
                     </p>
                 </div>
 
-                {/* Componente client-side com filtros e grid de cards */}
+                {/* Todos os jogos chegam de uma vez — o "ver mais" é só no cliente */}
                 <GamesContent
                     matches={matches}
                     predictions={palpitesMapped}

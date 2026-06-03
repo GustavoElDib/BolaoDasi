@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import DeleteUserButton from "./DeleteUserButton";
+import styles from "./page.module.css";
 
 const MODERATOR_EMAIL = process.env.MODERATOR_EMAIL;
 
@@ -20,27 +21,37 @@ export default async function UsersPage() {
     });
 
     return (
-        <main className="p-8">
-            <h1 className="text-4xl font-bold mb-8">Usuários</h1>
+        <div className={styles.page}>
+            <div className={styles.container}>
+                <div className={styles.header}>
+                    <h1 className={styles.title}>Gerenciar Usuários</h1>
+                    <p className={styles.subtitle}>
+                        {users.length} usuário{users.length !== 1 ? "s" : ""} cadastrado{users.length !== 1 ? "s" : ""}
+                    </p>
+                </div>
 
-            <div className="space-y-4">
-                {users.map((user) => (
-                    <div
-                        key={user.id}
-                        className="flex items-center justify-between border border-zinc-800 rounded-xl p-4"
-                    >
-                        <div>
-                            <h2 className="font-bold">{user.nome}</h2>
-                            <p className="text-zinc-400">{user.email}</p>
+                <div className={styles.list}>
+                    {users.map((user) => (
+                        <div key={user.id} className={styles.userCard}>
+                            <div className={styles.avatar}>
+                                {user.nome.slice(0, 2).toUpperCase()}
+                            </div>
+
+                            <div className={styles.userInfo}>
+                                <p className={styles.userName}>{user.nome}</p>
+                                <p className={styles.userEmail}>{user.email}</p>
+                            </div>
+
+                            {/* Badge para o moderador, botão deletar para os demais */}
+                            {user.email === MODERATOR_EMAIL ? (
+                                <span className={styles.modBadge}>Moderador</span>
+                            ) : (
+                                <DeleteUserButton userId={user.id} />
+                            )}
                         </div>
-
-                        {/* Não mostra o botão de deletar para o próprio moderador */}
-                        {user.email !== MODERATOR_EMAIL && (
-                            <DeleteUserButton userId={user.id} />
-                        )}
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </main>
+        </div>
     );
 }

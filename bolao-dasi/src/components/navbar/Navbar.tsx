@@ -164,13 +164,13 @@ export function Navbar() {
                             onClick={closeMenus}
                             className={styles.mobileLink}
                         >
-                            ✏️ Editar perfil
+                            Editar perfil
                         </Link>
                         <button
                             className={`${styles.mobileLink} ${styles.mobileSignOut}`}
                             onClick={handleSignOut}
                         >
-                            → Sair da conta
+                            Sair da conta
                         </button>
                     </>
                 )}

@@ -18,6 +18,10 @@ export default async function ProfilePage() {
 
     if (!user) redirect("/login");
 
+    // Verifica se o usuário logado é o moderador
+    // Feito aqui no Server Component porque process.env não está disponível no client
+    const isModerator = session.user.email === process.env.MODERATOR_EMAIL;
+
     return (
         <div className={styles.page}>
             <div className={styles.container}>
@@ -33,17 +37,15 @@ export default async function ProfilePage() {
                     </div>
                 </div>
 
-                <ProfileForm user={user} />
+                {/* isModerator impede que o moderador veja a zona de perigo */}
+                <ProfileForm user={user} isModerator={isModerator} />
 
                 <div className={styles.passwordSection}>
                     <p className={styles.passwordLabel}>Senha</p>
                     <p className={styles.passwordDesc}>
                         Para alterar sua senha, acesse a página de redefinição.
                     </p>
-                    <Link
-                        href="/reset-password"
-                        className={styles.passwordLink}
-                    >
+                    <Link href="/reset-password" className={styles.passwordLink}>
                         Redefinir senha →
                     </Link>
                 </div>
