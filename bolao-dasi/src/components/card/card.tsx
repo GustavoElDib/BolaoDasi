@@ -174,7 +174,7 @@ export function Card({ match, prediction }: Props) {
                     </div>
                 </div>
 
-                <div className={styles.grassDivider} />
+                
 
                 {/* Linha de resultado real + badge de status */}
                 <div className={styles.resultContainer}>
