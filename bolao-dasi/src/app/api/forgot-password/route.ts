@@ -53,7 +53,7 @@ export async function POST(
 
         html: `
             <p>
-                Clique no link abaixo para redefinir sua senha:
+                Clique no link abaixo para redefinir sua senha do Bolão DASI. Este link é válido por 30 minutos.:
             </p>
 
             <a href="${resetLink}">
