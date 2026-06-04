@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Toast, useToast } from "@/components/toast/Toast";
 import styles from "../../app/profile/page.module.css";
 
@@ -18,6 +18,7 @@ type Props = {
 };
 
 export function ProfileForm({ user, isModerator }: Props) {
+    const { data: session, update } = useSession();
     const [nome, setNome] = useState(user.nome);
     const [email, setEmail] = useState(user.email);
     const [loading, setLoading] = useState(false);
@@ -46,6 +47,15 @@ export function ProfileForm({ user, isModerator }: Props) {
                 return;
             }
 
+            await update({
+                ...session,
+                        user: {
+                        ...session?.user,
+                        name: nome, 
+                        email: email
+                    }
+            });
+            
             showToast("Perfil atualizado com sucesso!", "success");
             router.refresh();
         } catch {
