@@ -52,6 +52,7 @@ export function Card({ match, prediction }: Props) {
 
     const [loading, setLoading] = useState(false);
 
+    const[hasPrediction, setHasPrediction] = useState(!!prediction);
     // Inicializa os inputs com o palpite existente (se já tiver feito antes)
     const [homeScore, setHomeScore] = useState(
         prediction ? String(prediction.palpiteTimeCas) : ""
@@ -83,6 +84,7 @@ export function Card({ match, prediction }: Props) {
             if (!response.ok) throw new Error();
 
             showToast("Palpite salvo com sucesso!", "success");
+            setHasPrediction(true);
             // Força o Next.js a re-buscar os dados do servidor
             router.refresh();
         } catch {
@@ -211,10 +213,15 @@ export function Card({ match, prediction }: Props) {
                         <span className={isBetOpen ? styles.open : styles.closed}>
                             {isBetOpen ? "ABERTO" : "ENCERRADO"}
                         </span>
+                        {hasPrediction &&(
+                            <span className={styles.predictionBadge}>
+                            {"PALPITADO"}
+                        </span>)}
                     </div>
                 </div>
 
                 <div className={styles.footer}>
+                {!hasPrediction ? (
                     <button
                         disabled={!isBetOpen || loading}
                         onClick={savePrediction}
@@ -222,6 +229,16 @@ export function Card({ match, prediction }: Props) {
                     >
                         {loading ? "Salvando..." : "Salvar Palpite"}
                     </button>
+                ) : (
+                    <button
+                        disabled={!isBetOpen || loading}
+                        onClick={savePrediction}
+                        className={styles.buttonEdit}
+                    >
+                        {loading ? "Salvando..." : "Editar Palpite"}
+                    </button>
+                    )
+                }
                 </div>
             </div>
         </>
