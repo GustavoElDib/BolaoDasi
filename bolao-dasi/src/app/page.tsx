@@ -9,7 +9,7 @@ export default async function Home() {
       <main className={styles.main}>
 
         {/* Hero: texto à esquerda, animação à direita */}
-        <section className={styles.hero}>
+        <div className={styles.hero}>
 
           {/* Coluna de texto */}
           <div className={styles.heroText}>
@@ -38,7 +38,7 @@ export default async function Home() {
             <SoccerAnimation />
           </div>
 
-        </section>
+        </div>
 
         <hr className={styles.divider} />
 
