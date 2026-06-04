@@ -82,10 +82,11 @@ export default async function Home() {
           <div className={styles.phasesGrid}>
             {[
               { mult: "×1", label: "Fase de grupos" },
-              { mult: "×2", label: "Oitavas de final" },
-              { mult: "×3", label: "Quartas de final" },
-              { mult: "×4", label: "Semifinal" },
-              { mult: "×5", label: "Final", highlight: true },
+              { mult: "×2", label: "16-avos de final" },
+              { mult: "×3", label: "Oitavas de final" },
+              { mult: "×4", label: "Quartas de final" },
+              { mult: "×5", label: "Semifinal" },
+              { mult: "×6", label: "Final", highlight: true },
             ].map(({ mult, label, highlight }) => (
               <div
                 key={label}
