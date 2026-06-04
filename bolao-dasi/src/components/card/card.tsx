@@ -91,6 +91,19 @@ export function Card({ match, prediction }: Props) {
         }
     }
 
+    const getInputClass = (type: "home" | "away") => {
+    if (homeScore === "" || awayScore === "") return styles.input;
+    const home = Number(homeScore);
+    const away = Number(awayScore);
+    
+    if (home === away) return `${styles.input} ${styles.draw}`;
+    
+    const isWinner = type === "home" ? home > away : away > home;
+    return isWinner 
+        ? `${styles.input} ${styles.winner}` 
+        : `${styles.input} ${styles.loser}`;
+    };
+
     return (
         <>
             {toast && (
@@ -145,7 +158,7 @@ export function Card({ match, prediction }: Props) {
                             min={0}
                             value={homeScore}
                             onChange={(e) => setHomeScore(e.target.value)}
-                            className={styles.input}
+                            className={getInputClass("home")}
                             disabled={!isBetOpen}
                             suppressHydrationWarning
                         />
@@ -155,7 +168,7 @@ export function Card({ match, prediction }: Props) {
                             min={0}
                             value={awayScore}
                             onChange={(e) => setAwayScore(e.target.value)}
-                            className={styles.input}
+                            className={getInputClass("away")}
                             disabled={!isBetOpen}
                             suppressHydrationWarning
                         />
