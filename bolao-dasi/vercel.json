@@ -1,7 +1,7 @@
 {
     "crons": [
         {
-            "path": "/api/admin/sync?secret=SEU_CRON_SECRET_AQUI",
+            "path": "/api/admin/sync",
             "schedule": "0 */3 * * *"
         }
     ]
