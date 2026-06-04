@@ -6,10 +6,11 @@ import { NextResponse } from "next/server";
 // pesos de cada fase
 const PESOS_FASE: Record<string, number> = {
     "GROUP_STAGE": 1,
-    "ROUND_OF_16": 2,
-    "QUARTER_FINALS": 3,
-    "SEMI_FINALS": 4,
-    "FINAL": 5,
+    "LAST_32": 2,
+    "LAST_16": 3,
+    "QUARTER_FINALS": 4,
+    "SEMI_FINALS": 5,
+    "FINAL": 6,
 };
 
 // calcula pontos brutos (sem multiplicador de acordo com a fase)
