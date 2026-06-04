@@ -76,10 +76,11 @@ As fases eliminatórias possuem peso maior no ranking.
 | Fase | Multiplicador |
 |---|---|
 | Fase de grupos | x1 |
-| Oitavas de final | x2 |
-| Quartas de final | x3 |
-| Semifinal | x4 |
-| Final | x5 |
+| 16-avos de final | x2 |
+| Oitavas de final | x3 |
+| Quartas de final | x4 |
+| Semifinal | x5 |
+| Final | x6 |
 
 ---
 
