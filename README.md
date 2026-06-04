@@ -99,10 +99,10 @@ Acertar placar exato:
 ## Final
 
 Acertar vencedor:
-- +5 pontos
+- +6 pontos
 
 Acertar placar exato:
-- +15 pontos
+- +18 pontos
 
 ---
 
