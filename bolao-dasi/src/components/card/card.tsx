@@ -11,10 +11,11 @@ import { Toast, useToast } from "@/components/toast/Toast";
 // chave = nome que vem do banco, valor = nome legível e peso
 const FASES: Record<string, { label: string; peso: number }> = {
     GROUP_STAGE: { label: "Fase de Grupos", peso: 1 },
-    ROUND_OF_16: { label: "Oitavas de Final", peso: 2 },
-    QUARTER_FINALS: { label: "Quartas de Final", peso: 3 },
-    SEMI_FINALS: { label: "Semifinal", peso: 4 },
-    FINAL: { label: "Final", peso: 5 },
+    LAST_32 : { label: "16-avos de Final", peso: 2 },
+    LAST_16 : { label: "Oitavas de Final", peso: 3 },
+    QUARTER_FINALS: { label: "Quartas de Final", peso: 4 },
+    SEMI_FINALS: { label: "Semifinal", peso: 5 },
+    FINAL: { label: "Final", peso: 6 },
 };
 
 type Prediction = {
