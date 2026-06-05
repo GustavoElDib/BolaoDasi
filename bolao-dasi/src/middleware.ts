@@ -6,6 +6,8 @@ export default withAuth(
         return NextResponse.next();
     },
     {
+        // Força o middleware a usar a variável secreta explicitamente
+        secret: process.env.NEXTAUTH_SECRET,
         callbacks: {
             authorized({ token }) {
                 return !!token;
@@ -14,8 +16,6 @@ export default withAuth(
     }
 );
 
-// Rotas protegidas — requerem sessão válida
-// /users incluído para impedir acesso direto por URL mesmo sem estar logado
 export const config = {
     matcher: [
         "/games/:path*",
