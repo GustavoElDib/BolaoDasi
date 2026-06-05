@@ -40,7 +40,7 @@ export async function POST(
     });
 
     const resetLink =
-        `http://localhost:3000/reset-password/${token}`;
+        `https://bolao-dasi-usp.vercel.app/reset-password/${token}`;
 
     await resend.emails.send({
         from:

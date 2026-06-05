@@ -115,7 +115,7 @@ export default async function Home() {
               O palpite é bloqueado automaticamente quando o tempo encerra.
             </li>
             <li>
-              O ranking é atualizado após a finalização das partidas.
+              O ranking é atualizado diariamente uma única vez.
             </li>
             <li>
               Cada usuário pode alterar seu palpite até o bloqueio da partida.
