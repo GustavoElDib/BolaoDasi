@@ -122,7 +122,7 @@
 
     --border-hairline: 1px;
     /* bordas normais (era 0.5px, arredondava pra 0) */
-    --border-base: 1px;
+    --border-thin: 1px;
     /* alias semântico */
     --border-md: 2px;
 
