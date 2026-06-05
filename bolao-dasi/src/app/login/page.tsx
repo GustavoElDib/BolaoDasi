@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 
 // Hooks do React para estado e do Next.js para navegação
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 // Componente de notificação (substitui alert)
@@ -15,7 +15,7 @@ import { Toast, useToast } from "@/components/toast/Toast";
 import styles from "@/app/auth.module.css";
 
 export default function LoginPage() {
-    const router = useRouter();
+    //const router = useRouter();
 
     // Estado dos campos do formulário
     const [email, setEmail] = useState("");
@@ -31,29 +31,32 @@ export default function LoginPage() {
         try {
             setLoading(true);
 
-            // Tenta autenticar com email e senha via NextAuth
-            // redirect: false evita que o NextAuth redirecione sozinho
-            // assim podemos tratar o erro manualmente
             const result = await signIn("credentials", {
                 email,
                 senha,
                 redirect: false,
             });
 
-            // Se houver erro, o NextAuth devolve result.error com a mensagem
             if (result?.error) {
                 showToast("Email ou senha inválidos.", "error");
                 return;
             }
 
-            // router.refresh() faz o layout.tsx re-buscar a sessão no servidor
-            // sem isso o Navbar não atualiza e continua mostrando "Login"
-            router.refresh();
-            router.push("/games");
+            // --- A MÁGICA ACONTECE AQUI ---
+            // Ao invés de usar router.push() e router.refresh(),
+            // forçamos o navegador a fazer um recarregamento completo para a rota.
+            // Isso garante que o cookie seja enviado para o Middleware da Vercel.
+
+            // Se a URL tiver um callback (ex: tentou acessar /games direto), vai pra ela.
+            // Se não, vai pro /games por padrão.
+            const urlParams = new URLSearchParams(window.location.search);
+            const callbackUrl = urlParams.get("callbackUrl") || "/games";
+
+            window.location.replace(callbackUrl);
+
         } catch {
             showToast("Erro inesperado. Tente novamente.", "error");
         } finally {
-            // Sempre reativa o botão, independente de sucesso ou erro
             setLoading(false);
         }
     }
