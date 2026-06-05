@@ -1,81 +1,76 @@
-/* Wrapper de tela cheia com fundo escuro */
 .page {
     min-height: 100vh;
-    background: #0a0a0a;
+    background: var(--bg-base);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: var(--space-7);
 }
 
-/* Cartão central do formulário */
 .card {
     width: 100%;
-    max-width: 400px;
-    background: #111;
-    border: 0.5px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 36px 32px;
+    max-width: var(--container-xs);
+    background: var(--bg-card);
+    border: var(--border-thin) solid var(--border-base);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-13) var(--space-12);
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: var(--space-11);
 }
 
-/* Cabeçalho: ícone da copa + título */
 .header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: var(--space-5);
     text-align: center;
 }
 
-/* Ícone decorativo da copa */
 .trophy {
-    font-size: 40px;
+    font-size: var(--text-7xl);
     line-height: 1;
 }
 
 .title {
-    font-size: 22px;
+    font-size: var(--text-4xl);
     font-weight: 500;
-    color: #f5f5f5;
+    color: var(--text-primary);
     margin: 0;
 }
 
 .subtitle {
-    font-size: 13px;
-    color: #666;
+    font-size: var(--text-base);
+    color: var(--text-subtle);
     margin: 0;
 }
 
-/* Grupo de campo: label + input */
 .form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--space-7);
 }
 
 .field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-2);
 }
 
 .label {
-    font-size: 11px;
-    color: #555;
-    letter-spacing: 0.06em;
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+    letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
 }
 
 .input {
-    background: #0a0a0a;
-    border: 0.5px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 11px 14px;
-    font-size: 14px;
-    color: #f5f5f5;
+    background: var(--bg-base);
+    border: var(--border-thin) solid var(--border-mid);
+    border-radius: var(--radius-md);
+    padding: 0.6875rem 0.875rem;
+    font-size: var(--text-md);
+    color: var(--text-primary);
     outline: none;
     transition: border-color 0.2s;
     font-family: inherit;
@@ -83,21 +78,20 @@
 }
 
 .input:focus {
-    border-color: #7c3aed;
+    border-color: var(--purple);
 }
 
 .input::placeholder {
-    color: #444;
+    color: var(--text-ghost);
 }
 
-/* Botão principal roxo */
 .btnPrimary {
-    background: #7c3aed;
-    color: #fff;
+    background: var(--purple);
+    color: var(--text-white);
     border: none;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
+    border-radius: var(--radius-md);
+    padding: var(--space-5) 0;
+    font-size: var(--text-md);
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s;
@@ -106,7 +100,7 @@
 }
 
 .btnPrimary:hover:not(:disabled) {
-    background: #6d28d9;
+    background: var(--purple-hover);
 }
 
 .btnPrimary:disabled {
@@ -114,35 +108,33 @@
     cursor: not-allowed;
 }
 
-/* Rodapé com links secundários */
 .footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-3);
     text-align: center;
 }
 
 .link {
-    font-size: 13px;
-    color: #a78bfa;
+    font-size: var(--text-base);
+    color: var(--purple-light);
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .link:hover {
-    color: #c4b5fd;
+    color: var(--purple-lighter);
 }
 
 .footerText {
-    font-size: 13px;
-    color: #555;
+    font-size: var(--text-base);
+    color: var(--text-faint);
 }
 
-/* Divider sutil entre seções */
 .divider {
-    height: 0.5px;
-    background: rgba(255, 255, 255, 0.06);
+    height: var(--border-thin);
+    background: var(--border-base);
     border: none;
     margin: 0;
 }

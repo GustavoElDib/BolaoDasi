@@ -1,112 +1,108 @@
 .page {
     min-height: 100vh;
-    background: #0a0a0a;
-    padding: 40px 2rem;
+    background: var(--bg-base);
+    padding: var(--space-14) var(--space-7);
 }
 
 .container {
-    max-width: 960px;
+    max-width: var(--container-xl);
     margin: 0 auto;
 }
 
 .pageHeader {
-    margin-bottom: 32px;
+    margin-bottom: var(--space-12);
 }
 
 .pageTitle {
-    font-size: 28px;
+    font-size: var(--text-5xl);
     font-weight: 500;
-    color: #f5f5f5;
-    margin-bottom: 6px;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
 }
 
 .pageSubtitle {
-    font-size: 14px;
-    color: #666;
+    font-size: var(--text-md);
+    color: var(--text-subtle);
     line-height: 1.6;
 }
 
 .pageSubtitle strong {
-    color: var(--light-purple);
+    color: var(--purple-light);
 }
 
-/* Barra de filtros */
 .filters {
     display: flex;
-    gap: 8px;
-    margin-bottom: 32px;
+    gap: var(--space-3);
+    margin-bottom: var(--space-12);
     flex-wrap: wrap;
 }
 
 .filterBtn {
-    padding: 7px 16px;
-    border-radius: 8px;
-    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    padding: 0.4375rem 1rem;
+    border-radius: var(--radius-md);
+    border: var(--border-thin) solid var(--border-base);
     background: transparent;
-    color: #888;
-    font-size: 13px;
+    color: var(--text-muted);
+    font-size: var(--text-base);
     cursor: pointer;
     transition: background 0.2s, color 0.2s, border-color 0.2s;
     font-family: inherit;
 }
 
 .filterBtn:hover {
-    background: rgba(255, 255, 255, 0.04);
-    color: #f5f5f5;
+    background: var(--border-subtle);
+    color: var(--text-primary);
 }
 
 .filterBtnActive {
     background: rgba(124, 58, 237, 0.15);
-    border-color: rgba(124, 58, 237, 0.4);
-    color: var(--light-purple);
+    border-color: var(--purple-border-lg);
+    color: var(--purple-light);
 }
 
 .filterBtnActive:hover {
-    background: rgba(124, 58, 237, 0.2);
+    background: var(--purple-dim-hover);
 }
 
-/* Grid de cards */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(auto-fill, minmax(21.25rem, 1fr));
+    gap: var(--space-7);
+    margin-bottom: var(--space-12);
 }
 
-/* Estado vazio */
 .emptyState {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 48px 0;
-    gap: 8px;
+    padding: var(--space-15) 0;
+    gap: var(--space-3);
 }
 
 .emptyText {
-    font-size: 14px;
-    color: #555;
+    font-size: var(--text-md);
+    color: var(--text-faint);
     text-align: center;
 }
 
-/* Área do botão ver mais */
 .loadMore {
     display: flex;
     justify-content: center;
-    padding: 8px 0 16px;
+    padding: var(--space-3) 0 var(--space-7);
 }
 
 .loadMoreBtn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 12px 32px;
-    border-radius: 10px;
-    border: 0.5px solid rgba(124, 58, 237, 0.3);
+    gap: var(--space-1);
+    padding: var(--space-5) var(--space-12);
+    border-radius: var(--radius-lg);
+    border: var(--border-thin) solid rgba(124, 58, 237, 0.3);
     background: rgba(124, 58, 237, 0.08);
-    color: var(--light-purple);
-    font-size: 14px;
+    color: var(--purple-light);
+    font-size: var(--text-md);
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s, border-color 0.2s;
@@ -118,9 +114,8 @@
     border-color: rgba(124, 58, 237, 0.5);
 }
 
-/* Contador de jogos restantes */
 .loadMoreCount {
-    font-size: 11px;
-    color: #666;
+    font-size: var(--text-xs);
+    color: var(--text-subtle);
     font-weight: 400;
 }

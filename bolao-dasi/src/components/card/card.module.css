@@ -1,8 +1,7 @@
-/* Card base — fundo escuro com sotaque roxo */
 .card {
-    background: #111;
-    border: 0.5px solid rgba(124, 58, 237, 0.2);
-    border-radius: 20px;
+    background: var(--bg-card);
+    border: var(--border-thin) solid var(--purple-border);
+    border-radius: var(--radius-3xl);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -10,103 +9,95 @@
 }
 
 .card:hover {
-    border-color: rgba(124, 58, 237, 0.35);
+    border-color: var(--purple-border-md);
 }
 
-/* Card encerrado — escurece e dessatura para indicar que não aceita mais palpites */
 .cardClosed {
-    background: #0a0a0a;
-    border-color: rgba(255, 255, 255, 0.05);
+    background: var(--bg-card-closed);
+    border-color: var(--border-subtle);
     opacity: 0.7;
 }
 
 .cardClosed:hover {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-dim);
     opacity: 0.8;
 }
 
-/* Cabeçalho: fase/grupo à esquerda, data à direita */
 .header {
-    background: #0d0d0d;
-    padding: 13px 20px;
+    background: var(--bg-card-header);
+    padding: 0.8125rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.5px solid rgba(124, 58, 237, 0.1);
+    border-bottom: var(--border-thin) solid rgba(124, 58, 237, 0.1);
 }
 
-/* Lado esquerdo do header: badge fase + badge peso */
 .headerLeft {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--space-2);
     flex-wrap: wrap;
 }
 
-/* Badge roxo com o nome da fase em português */
 .group {
-    font-size: 10px;
+    font-size: var(--text-2xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #a78bfa;
-    background: rgba(124, 58, 237, 0.12);
-    padding: 3px 8px;
-    border-radius: 4px;
+    color: var(--purple-light);
+    background: var(--purple-dim);
+    padding: 0.1875rem 0.5rem;
+    border-radius: var(--radius-xs);
     display: inline-block;
 }
 
-/* Badge do peso multiplicador da fase ex: ×2 */
 .phaseBadge {
-    font-size: 10px;
+    font-size: var(--text-2xs);
     font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #a78bfa;
-    background: rgba(124, 58, 237, 0.12);
-    border: 0.5px solid rgba(124, 58, 237, 0.25);
-    padding: 3px 7px;
-    border-radius: 4px;
+    letter-spacing: var(--tracking-wide);
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: var(--border-thin) solid var(--gold-border);
+    padding: 0.1875rem 0.4375rem;
+    border-radius: var(--radius-xs);
     display: inline-block;
 }
 
-/* Bloco de data/hora à direita do header */
 .dateContainer {
     text-align: right;
     flex-shrink: 0;
 }
 
 .dateContainer p {
-    font-size: 13px;
-    color: #d4d4d4;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
 }
 
 .time {
-    font-size: 11px;
-    color: #555;
-    margin-top: 2px;
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+    margin-top: 0.125rem;
 }
 
-/* Área central: escudo + inputs + escudo */
 .teams {
-    padding: 24px 20px 16px;
+    padding: 1.5rem 1.25rem 1rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-3);
 }
 
-/* Coluna de cada time: escudo + nome */
 .team {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-4);
     text-align: center;
     min-width: 0;
 }
 
 .team span {
-    font-size: 13px;
-    color: #f5f5f5;
+    font-size: var(--text-base);
+    color: var(--text-primary);
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -114,25 +105,23 @@
     width: 100%;
 }
 
-/* Container dos dois inputs de placar */
 .inputsContainer {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-3);
     flex-shrink: 0;
 }
 
-/* Input quadrado para digitar o placar */
 .input {
-    width: 52px;
-    height: 52px;
-    background: #1a1a1a;
-    border: 1px solid rgba(124, 58, 237, 0.25);
-    border-radius: 12px;
+    width: var(--input-height);
+    height: var(--input-height);
+    background: var(--bg-card-input);
+    border: var(--border-base) solid var(--purple-border);
+    border-radius: var(--radius-xl);
     text-align: center;
-    font-size: 22px;
+    font-size: var(--text-3xl);
     font-weight: 500;
-    color: #fff;
+    color: var(--text-white);
     outline: none;
     transition: border-color 0.2s;
     appearance: textfield;
@@ -145,160 +134,135 @@
 }
 
 .input:focus {
-    border-color: #7c3aed;
+    border-color: var(--purple);
 }
 
-/* Input desabilitado no card encerrado */
 .input:disabled {
     opacity: 0.3;
     cursor: not-allowed;
-    border-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-subtle);
 }
 
+/* Inputs coloridos conforme resultado */
 .winner {
-    background: #14291c23;
-    border-color: #63ff9c6e;
-    color: #4ade80a3;
+    background: var(--input-winner-bg);
+    border-color: var(--input-winner-border);
+    color: var(--input-winner-text);
 }
 
 .winner:focus {
-    border-color: #4ade80;
-    color: #4ade80
+    border-color: var(--input-winner-focus);
+    color: var(--input-winner-focus);
 }
 
-/* Input de Derrota */
 .loser {
-    background: #2e191954;
-    border-color: #ef444466;
-    color: #f87171a3;
-}
-.loser:focus {
-    border-color: #f87171;
-    color: #f87171
+    background: var(--input-loser-bg);
+    border-color: var(--input-loser-border);
+    color: var(--input-loser-text);
 }
 
-/* Input de Empate */
-.draw {
-    background: #26262660;
-    border-color: #5b5959bb;
-    color: #a3a3a3;
+.loser:focus {
+    border-color: var(--input-loser-focus);
+    color: var(--input-loser-focus);
 }
+
+.draw {
+    background: var(--input-draw-bg);
+    border-color: var(--input-draw-border);
+    color: var(--input-draw-text);
+}
+
 .draw:focus {
-    border-color: #a3a3a3;
+    border-color: var(--input-draw-focus);
 }
 
 .input:disabled.winner,
 .input:disabled.loser,
 .input:disabled.draw {
-    opacity: 0.6; 
+    opacity: 0.6;
 }
 
-/* "×" entre os dois inputs */
 .versus {
-    font-size: 15px;
+    font-size: var(--text-lg);
     font-weight: 500;
     color: #333;
 }
 
-/* Divisor decorativo estilo listras roxas */
 .grassDivider {
-    height: 2px;
-    margin: 0 20px;
+    height: var(--border-md);
+    margin: 0 1.25rem;
     background: repeating-linear-gradient(90deg,
-            rgba(124, 58, 237, 0.25) 0px,
-            rgba(124, 58, 237, 0.25) 10px,
-            rgba(124, 58, 237, 0.06) 10px,
-            rgba(124, 58, 237, 0.06) 20px);
-    border-radius: 2px;
+            var(--purple-border) 0,
+            var(--purple-border) 0.625rem,
+            var(--purple-dim) 0.625rem,
+            var(--purple-dim) 1.25rem);
+    border-radius: var(--space-1);
 }
 
-/* Linha de resultado real + status */
 .resultContainer {
-    padding: 14px 20px;
+    padding: 0.875rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .resultLabel {
-    font-size: 10px;
+    font-size: var(--text-2xs);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #444;
-    margin-bottom: 4px;
+    color: var(--text-ghost);
+    margin-bottom: var(--space-1);
 }
 
 .result {
-    font-size: 17px;
+    font-size: var(--text-2xl);
     font-weight: 500;
-    color: #f5f5f5;
+    color: var(--text-primary);
 }
 
-/* Badge roxo: palpite aberto */
 .open {
-    font-size: 11px;
+    font-size: var(--text-xs);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 6px;
-    background: rgba(124, 58, 237, 0.12);
-    color: #a78bfa;
+    letter-spacing: var(--tracking-wider);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+    background: var(--purple-dim);
+    color: var(--purple-light);
 }
 
 .predictionBadge {
-    font-size: 11px;
+    font-size: var(--text-xs);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 6px;
-    background: rgba(58, 201, 237, 0.12);
-    color: #8bccfa;
-    margin-left: 4px;
+    letter-spacing: var(--tracking-wider);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+    background: var(--cyan-dim);
+    color: var(--cyan-light);
+    margin-left: var(--space-1);
 }
 
-/* Badge vermelho: palpite encerrado */
 .closed {
-    font-size: 11px;
+    font-size: var(--text-xs);
     font-weight: 600;
-    letter-spacing: 0.06em;
-    padding: 4px 10px;
-    border-radius: 6px;
-    background: rgba(239, 68, 68, 0.1);
-    color: #f87171;
+    letter-spacing: var(--tracking-wider);
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+    background: var(--red-dim);
+    color: var(--red-light);
 }
 
-/* Rodapé com botão de salvar */
 .footer {
-    padding: 0 20px 20px;
-}
-
-.buttonEdit {
-    width: 100%;
-    height: 44px;
-    background: #7c3aed14;
-    border: none;
-    border-radius: 12px;
-    color: #a78bfa;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: inherit;
-    letter-spacing: 0.02em;
-}
-
-.button:hover:not(:disabled) {
-    background: #6d28d9;
+    padding: 0 1.25rem 1.25rem;
 }
 
 .button {
     width: 100%;
-    height: 44px;
-    background: #7c3aed;
+    height: var(--btn-height-md);
+    background: var(--purple);
     border: none;
-    border-radius: 12px;
-    color: #fff;
-    font-size: 14px;
+    border-radius: var(--radius-xl);
+    color: var(--text-white);
+    font-size: var(--text-md);
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s;
@@ -307,12 +271,30 @@
 }
 
 .button:hover:not(:disabled) {
-    background: #6d28d9;
+    background: var(--purple-hover);
 }
 
-/* Botão desabilitado quando jogo encerrou ou está salvando */
 .button:disabled {
-    background: #1a1a1a;
-    color: #2a2a2a;
+    background: var(--bg-card-input);
+    color: var(--text-disabled);
     cursor: not-allowed;
+}
+
+.buttonEdit {
+    width: 100%;
+    height: var(--btn-height-md);
+    background: var(--purple-dim);
+    border: none;
+    border-radius: var(--radius-xl);
+    color: var(--purple-light);
+    font-size: var(--text-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+}
+
+.buttonEdit:hover:not(:disabled) {
+    background: var(--purple-dim-hover);
 }

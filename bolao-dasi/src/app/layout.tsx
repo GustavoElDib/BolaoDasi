@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Arima, Mulish, Poiret_One } from "next/font/google";
 import { Navbar } from "@/components/navbar/Navbar";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
-
+import "../styles/colors.css";
+import "../styles/sizes.css";
 
 
 const poiretOne = Poiret_One({

@@ -1,0 +1,147 @@
+/*
+ * ─────────────────────────────────────────────
+ *  TAMANHOS — Bolão DASI
+ *  Base: 1rem = 16px (padrão do browser)
+ *  Importe no globals.css com:
+ *  @import "../styles/sizes.css";
+ * ─────────────────────────────────────────────
+ */
+
+:root {
+    /* ── Escala de fontes ── */
+    --text-2xs: 0.625rem;
+    /*  10px */
+    --text-xs: 0.6875rem;
+    /*  11px */
+    --text-sm: 0.75rem;
+    /*  12px */
+    --text-base: 0.8125rem;
+    /*  13px */
+    --text-md: 0.875rem;
+    /*  14px */
+    --text-lg: 0.9375rem;
+    /*  15px */
+    --text-xl: 1rem;
+    /*  16px */
+    --text-2xl: 1.0625rem;
+    /*  17px */
+    --text-3xl: 1.125rem;
+    /*  18px */
+    --text-4xl: 1.375rem;
+    /*  22px */
+    --text-5xl: 1.75rem;
+    /*  28px */
+    --text-6xl: 2.125rem;
+    /*  34px */
+    --text-7xl: 2.375rem;
+    /*  38px */
+    --text-hero: 2.375rem;
+    /*  38px — título hero desktop */
+    --text-hero-sm: 1.75rem;
+    /*  28px — título hero mobile */
+
+    /* ── Espaçamentos ── */
+    --space-1: 0.25rem;
+    /*   4px */
+    --space-2: 0.375rem;
+    /*   6px */
+    --space-3: 0.5rem;
+    /*   8px */
+    --space-4: 0.625rem;
+    /*  10px */
+    --space-5: 0.75rem;
+    /*  12px */
+    --space-6: 0.875rem;
+    /*  14px */
+    --space-7: 1rem;
+    /*  16px */
+    --space-8: 1.125rem;
+    /*  18px */
+    --space-9: 1.25rem;
+    /*  20px */
+    --space-10: 1.375rem;
+    /*  22px */
+    --space-11: 1.5rem;
+    /*  24px */
+    --space-12: 2rem;
+    /*  32px */
+    --space-13: 2.25rem;
+    /*  36px */
+    --space-14: 2.5rem;
+    /*  40px */
+    --space-15: 3rem;
+    /*  48px */
+    --space-16: 3.5rem;
+    /*  56px */
+    --space-17: 4rem;
+    /*  64px */
+    --space-18: 4.5rem;
+    /*  72px */
+
+    /* ── Border radius ── */
+    --radius-xs: 0.25rem;
+    /*  4px */
+    --radius-sm: 0.375rem;
+    /*  6px */
+    --radius-md: 0.5rem;
+    /*  8px */
+    --radius-lg: 0.625rem;
+    /* 10px */
+    --radius-xl: 0.75rem;
+    /* 12px */
+    --radius-2xl: 1rem;
+    /* 16px */
+    --radius-3xl: 1.25rem;
+    /* 20px */
+    --radius-full: 9999px;
+
+    /* ── Larguras máximas de containers ── */
+    --container-xs: 25rem;
+    /* 400px */
+    --container-sm: 32.5rem;
+    /* 520px */
+    --container-md: 42.5rem;
+    /* 680px */
+    --container-lg: 56.25rem;
+    /* 900px */
+    --container-xl: 60rem;
+    /* 960px */
+    --container-2xl: 68.75rem;
+    /* 1100px */
+
+    /* ── Alturas fixas ── */
+    --navbar-height: 3.75rem;
+    /* 60px */
+    --btn-height-sm: 2.25rem;
+    /* 36px */
+    --btn-height-md: 2.75rem;
+    /* 44px */
+    --btn-height-lg: 3rem;
+    /* 48px */
+    --input-height: 3.25rem;
+    /* 52px */
+    --avatar-sm: 1.625rem;
+    /* 26px */
+    --avatar-md: 2.5rem;
+    /* 40px */
+    --avatar-lg: 2.8125rem;
+    /* 45px */
+    --avatar-xl: 3.25rem;
+    /* 52px */
+
+    /* ── Border widths
+         ATENÇÃO: use sempre 1px para bordas visíveis.
+         0.5px é subpixel e pode sumir em alguns browsers/telas.
+         Reserve --border-hairline para divisores decorativos muito sutis. ── */
+    --border-hairline: 1px;
+    /* bordas normais (era 0.5px, arredondava pra 0) */
+    --border-base: 1px;
+    /* alias semântico */
+    --border-md: 2px;
+
+    /* ── Letter spacing ── */
+    --tracking-tight: -0.03em;
+    --tracking-wide: 0.04em;
+    --tracking-wider: 0.06em;
+    --tracking-widest: 0.12em;
+}
