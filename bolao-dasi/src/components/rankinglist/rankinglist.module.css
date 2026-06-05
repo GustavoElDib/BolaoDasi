@@ -127,7 +127,7 @@
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 2.5rem);
-  max-width: 35rem;
+  max-width: 40rem;
   background-color: var(--bg-base);
   border-radius: var(--radius-3xl);
   padding: var(--space-1);
