@@ -78,7 +78,7 @@
 .pointsText {
   font-weight: bold;
   color: var(--purple-light);
-  font-size: var(--text-4xl);
+  font-size: var(--text-3xl);
   text-shadow: 0 0 0.75rem var(--purple-light);
 }
 
