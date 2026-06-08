@@ -2,6 +2,7 @@
 import styles from "./page.module.css";
 import Link from "next/link";
 import { SoccerAnimation } from "@/components/animations/SoccerAnimation";
+import { Awards } from "@/components/awards/AwardsContent";
 
 export default async function Home() {
   return (
@@ -122,6 +123,25 @@ export default async function Home() {
             </li>
           </ul>
         </section>
+
+        <hr className={styles.divider} />
+
+      <section className={styles.section}>
+        <p className={styles.sectionTitle}>Premiações</p>
+          <ul className={styles.generalList}>
+            <li>
+              O <strong>primeiro colocado</strong> ganha uma <strong>camisa de seleção</strong> da sua escolha;
+            </li>
+            <li>
+              O <strong>segundo colocado</strong> ganha um <strong>gift card</strong> ou um <strong>vale-festa</strong>;
+            </li>
+            <li>
+              O <strong>terceiro colocado</strong> ganha um <strong>gift card</strong> ou um <strong>vale-festa</strong>;
+            </li>
+          </ul>
+        {/* CONTAINER PRINCIPAL DO PÓDIO */}
+        <Awards />
+      </section>
 
       </main>
 
