@@ -1,0 +1,123 @@
+/* Container do pódio que alinha as 3 colunas por baixo */
+.podiumContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 20vh;
+  margin: 0 auto;
+  margin-top: 10vh;
+}
+
+.podiumColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Divide o pódio em 3 partes iguais */
+}
+
+.prizeArea {
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2vh;
+}
+
+.prizeIcon img {
+  width: 20vh;
+  height: 20vh;
+  margin-bottom: 20%;
+  object-fit: contain;
+}
+
+/* O BLOCO DO DEGRAU (Comum para todos) */
+.podiumStep {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* O número gigante dentro do degrau */
+.stepFirst {
+  display: flex;
+  justify-content: center;     
+  align-items: center;
+  font-weight: bold;
+  line-height: 1;
+  width: 1.625rem;
+  justify-content: center;
+  height: 1.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--rank-gold);
+  color: #131f24;
+  box-shadow: 0 0 1.5rem var(--rank-gold-glow);
+}
+
+.stepSecond {
+  display: flex;
+  justify-content: center;     
+  align-items: center;
+  font-weight: bold;
+  line-height: 1;
+  width: 1.625rem;
+  justify-content: center;
+  height: 1.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--rank-silver);
+  color: #131f24;
+  box-shadow: 0 0 1.5rem var(--rank-silver-glow);
+}
+
+.stepThird {
+  display: flex;
+  justify-content: center;     
+  align-items: center;
+  font-weight: bold;
+  line-height: 1;
+  width: 1.625rem;
+  justify-content: center;
+  height: 1.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--rank-bronze);
+  color: #131f24;
+  box-shadow: 0 0 1.5rem var(--rank-bronze-glow);
+}
+
+/* 1º Lugar (Centro) */
+.firstColumn {
+  z-index: 3;
+}
+.firstColumn .podiumStep {
+  height: 17vh;
+  background-color: var(--purple);
+  border-radius: 2vh 2vh 0vh 0vh;
+}
+
+/* 2º Lugar (Esquerda) */
+.secondColumn {
+  z-index: 2;
+}
+.secondColumn .podiumStep {
+  height: 12vh;
+  background-color:var(--purple-light);
+  border-radius: 2vh 2vh 0vh 0vh;
+}
+.secondColumn .stepNumber {
+  color: var(--bg-base);
+}
+
+/* 3º Lugar (Direita) */
+.thirdColumn {
+  z-index: 1;
+}
+.thirdColumn .podiumStep {
+  height: 8vh;
+  background-color: var(--purple-lighter);
+  border-radius: 2vh 2vh 0vh 0vh;
+}
+.thirdColumn .stepNumber {
+  color: var(--bg-base);
+}
