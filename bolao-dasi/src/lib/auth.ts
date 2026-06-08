@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
 
-    secret: process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
 
     session: {
         strategy: "jwt" as const,
@@ -78,6 +78,7 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             if (session.user && token) {
                 // MODIFICADO: Adicionada a asserção 'as string' para evitar conflito de tipos (any/string)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (session.user as any).id = token.id as string;
                 session.user.name = token.name as string;
                 session.user.email = token.email as string;
