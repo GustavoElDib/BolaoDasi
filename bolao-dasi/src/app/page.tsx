@@ -116,7 +116,10 @@ export default async function Home() {
               O palpite é bloqueado automaticamente quando o tempo encerra.
             </li>
             <li>
-              O ranking é atualizado diariamente uma única vez.
+              O ranking é atualizado diariamente, uma única vez, à meia-noite (00h00).
+            </li>
+            <li>
+              Os pontos ganhos nos palpites são atualizados diariamente, uma única vez, à meia-noite (00h00). Não se preocupe se seus pontos não forem computados imediatamente após o término de um jogo, eles serão atualizados na próxima atualização diária do ranking.
             </li>
             <li>
               Cada usuário pode alterar seu palpite até o bloqueio da partida.
