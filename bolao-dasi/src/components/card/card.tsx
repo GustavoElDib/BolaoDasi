@@ -43,8 +43,12 @@ export function Card({ match, prediction }: Props) {
     });
 
     // Palpite só é permitido se o jogo não começou e não terminou
+    const [now] = useState(() => Date.now());
+
     const isBetOpen =
-        match.status !== "FINISHED" && match.status !== "IN_PLAY";
+        match.status !== "FINISHED" &&
+        match.status !== "IN_PLAY" &&
+        new Date(match.utcDate).getTime() - now >= 60 * 60 * 1000;
 
     // Busca o nome formatado em português e o peso da fase
     // Usa fallback para o valor bruto caso venha uma fase desconhecida
