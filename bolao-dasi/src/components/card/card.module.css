@@ -298,3 +298,9 @@
 .buttonEdit:hover:not(:disabled) {
     background: var(--purple-dim-hover);
 }
+
+.buttonEdit:disabled {
+    background: var(--purple-dim-dis);
+    color: var(--purple-glow);
+    cursor: not-allowed;
+}

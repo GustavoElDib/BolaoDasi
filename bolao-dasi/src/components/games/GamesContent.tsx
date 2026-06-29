@@ -47,11 +47,18 @@ export function GamesContent({ matches, predictions }: Props) {
     }, [predictions]);
 
     // Lista filtrada completa
-    const filteredMatches = useMemo(() => {
-        if (filter === "all") return matches;
-        if (filter === "predicted")
-            return matches.filter((m) => predictionsMap.has(m.id));
-        return matches.filter((m) => !predictionsMap.has(m.id));
+const filteredMatches = useMemo(() => {
+        let result = matches;
+
+        if (filter === "predicted") {
+            result = matches.filter((m) => predictionsMap.has(m.id));
+        } else if (filter === "not_predicted") {
+            result = matches.filter((m) => !predictionsMap.has(m.id));
+        }
+        return [...result].sort((a, b) => {
+            return new Date(b.utcDate).getTime() - new Date(a.utcDate).getTime();
+        });
+        
     }, [filter, matches, predictionsMap]);
 
     // Fatia visível — cresce quando o usuário clica em "ver mais"

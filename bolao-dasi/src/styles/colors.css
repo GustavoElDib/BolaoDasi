@@ -19,7 +19,8 @@
     --purple-dim: rgba(124, 58, 237, 0.12);
     /* fundo de badges roxos */
     --purple-dim-hover: rgba(124, 58, 237, 0.20);
-    --purple-border: rgba(124, 58, 237, 0.25);
+    --purple-dim-dis: rgba(115, 54, 221, 0.097);    
+    --purple-border: rgba(124, 58, 237, 0.2);
     --purple-border-md: rgba(124, 58, 237, 0.35);
     --purple-border-lg: rgba(124, 58, 237, 0.40);
     --purple-glow: rgba(167, 139, 250, 0.50);
