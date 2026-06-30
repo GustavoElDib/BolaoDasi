@@ -7,20 +7,6 @@ export async function syncMatches() {
     for (const match of matches) {
         if (!match.homeTeam?.name || !match.awayTeam?.name) continue;
 
-        // LOG TEMPORÁRIO — remover depois de confirmar a estrutura
-        if (
-            match.homeTeam.name.includes("Germany") ||
-            match.awayTeam.name.includes("Germany") ||
-            match.homeTeam.name.includes("Paraguay") ||
-            match.awayTeam.name.includes("Paraguay")
-        ) {
-            console.log("=== JOGO ALEMANHA/PARAGUAI ===");
-            console.log("ID:", match.id);
-            console.log("Times:", match.homeTeam.name, "x", match.awayTeam.name);
-            console.log("Status:", match.status);
-            console.log("Score completo:", JSON.stringify(match.score, null, 2));
-        }
-
         // Cria/atualiza fase
         const fase = await prisma.fase.upsert({
             where: { nome: match.stage },
@@ -50,20 +36,26 @@ export async function syncMatches() {
             },
         });
 
+        // Placar do TEMPO REGULAR — usa regularTime quando existe
+        // (jogos que foram para prorrogação/pênaltis), senão usa fullTime
+        // (jogos decididos nos 90 minutos, onde regularTime não vem na API)
+        const placarCasaReal = match.score?.regularTime?.home ?? match.score?.fullTime?.home ?? null;
+        const placarForaReal = match.score?.regularTime?.away ?? match.score?.fullTime?.away ?? null;
+
         // Upsert da partida — cria se não existir, atualiza status e placar se existir
         await prisma.partida.upsert({
             where: { apiFootballId: match.id },
             update: {
                 status: match.status,
-                placarCasaReal: match.score?.fullTime?.home ?? null,
-                placarForaReal: match.score?.fullTime?.away ?? null,
+                placarCasaReal,
+                placarForaReal,
             },
             create: {
                 apiFootballId: match.id,
                 dataPartida: new Date(match.utcDate),
                 status: match.status,
-                placarCasaReal: match.score?.fullTime?.home ?? null,
-                placarForaReal: match.score?.fullTime?.away ?? null,
+                placarCasaReal,
+                placarForaReal,
                 faseID: fase.id,
                 timeUmID: mandante.id,
                 timeDoisID: visitante.id,
