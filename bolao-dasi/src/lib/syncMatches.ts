@@ -7,6 +7,20 @@ export async function syncMatches() {
     for (const match of matches) {
         if (!match.homeTeam?.name || !match.awayTeam?.name) continue;
 
+        // LOG TEMPORÁRIO — remover depois de confirmar a estrutura
+        if (
+            match.homeTeam.name.includes("Germany") ||
+            match.awayTeam.name.includes("Germany") ||
+            match.homeTeam.name.includes("Paraguay") ||
+            match.awayTeam.name.includes("Paraguay")
+        ) {
+            console.log("=== JOGO ALEMANHA/PARAGUAI ===");
+            console.log("ID:", match.id);
+            console.log("Times:", match.homeTeam.name, "x", match.awayTeam.name);
+            console.log("Status:", match.status);
+            console.log("Score completo:", JSON.stringify(match.score, null, 2));
+        }
+
         // Cria/atualiza fase
         const fase = await prisma.fase.upsert({
             where: { nome: match.stage },
@@ -37,7 +51,6 @@ export async function syncMatches() {
         });
 
         // Upsert da partida — cria se não existir, atualiza status e placar se existir
-        // Isso garante que partidas finalizadas tenham o placar real salvo
         await prisma.partida.upsert({
             where: { apiFootballId: match.id },
             update: {
