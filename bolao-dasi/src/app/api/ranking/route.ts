@@ -10,6 +10,7 @@ const PESOS_FASE: Record<string, number> = {
     "LAST_16": 3,
     "QUARTER_FINALS": 4,
     "SEMI_FINALS": 5,
+    "THIRD_PLACE": 5,
     "FINAL": 6,
 };
 
