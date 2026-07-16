@@ -15,7 +15,7 @@ const FASES: Record<string, { label: string; peso: number }> = {
     LAST_16 : { label: "Oitavas de Final", peso: 3 },
     QUARTER_FINALS: { label: "Quartas de Final", peso: 4 },
     SEMI_FINALS: { label: "Semifinal", peso: 5 },
-    THIRD_PLACE: {label: "Terceiro Luga", peso: 5},
+    THIRD_PLACE: {label: "Terceiro Lugar", peso: 5},
     FINAL: { label: "Final", peso: 6 },
 };
 
